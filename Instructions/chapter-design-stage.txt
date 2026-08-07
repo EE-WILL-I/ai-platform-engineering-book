@@ -1,0 +1,1 @@
+Design Chapter @ "@". Do not write the chapter yet. Produce a detailed outline with section hierarchy, expected tables, and identify where later chapters (Observability, Cost, Deployment) should be referenced instead of explained.

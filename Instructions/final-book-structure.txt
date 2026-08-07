@@ -1,0 +1,454 @@
+# book structure markup
+Don't review the structure. Always follow provided book structure.
+
+Part I — Foundations and Platform Strategy
+
+This part establishes how AI platforms differ from classical distributed systems.
+
+Chapter 1. Scope, Evidence, and Technology Landscape
+What is AI Platform Engineering
+Scope of the book
+Evidence-based engineering
+AI hype versus production reality
+Technology lifecycle
+Reading benchmarks correctly
+Keeping an AI stack current
+
+This is almost your current chapter.
+
+Chapter 2. Stack Selection and Reference Architectures
+
+Rather than only listing technologies, explain:
+
+reference architectures
+build vs buy
+cloud vs self-hosted
+managed vs open-weight
+organizational maturity
+common architectural patterns
+
+End with several reference architectures.
+
+Part II — Models and Inference
+
+This part answers:
+
+"What actually produces tokens?"
+
+Chapter 3. Commercial Models, APIs, and Managed AI Platforms
+
+Current Chapter 3.
+
+Expand with:
+
+API ecosystems
+managed endpoints
+pricing models
+reasoning models
+multimodal APIs
+SLAs
+versioning
+Chapter 4. Open-Weight Models, Licensing, and Model Selection
+
+Current Chapter 4.
+
+Also discuss:
+
+license evolution
+benchmark interpretation
+hardware implications
+quantization compatibility
+community ecosystems
+Chapter 5. Inference Engines and Model Serving
+
+This becomes one of the largest chapters.
+
+Include:
+
+serving architecture
+batching
+KV cache
+schedulers
+speculative decoding
+paged attention
+tensor parallelism
+pipeline parallelism
+disaggregated serving
+inference engines
+
+This becomes the "runtime" chapter.
+
+Part III — AI Platform Runtime
+
+Notice this is now platform infrastructure instead of just "control planes."
+
+Chapter 6. AI Gateways and Traffic Management
+
+Not merely gateways.
+
+Explain:
+
+authentication
+routing
+rate limits
+retries
+observability
+policy enforcement
+model abstraction
+
+Compare:
+
+LiteLLM
+
+Portkey
+
+Kong AI Gateway
+
+Azure AI Gateway
+
+Cloudflare AI Gateway
+
+etc.
+
+Chapter 7. Tool Calling, MCP, and External Systems
+
+
+Reason:
+
+Agents cannot exist without tools.
+
+Explain:
+
+tool calling
+schemas
+JSON
+MCP
+remote MCP
+transports
+permissions
+security
+state
+Chapter 8. Orchestration and Agent Frameworks
+
+Now readers understand:
+
+model
+
+gateway
+
+tools
+
+This chapter explains:
+
+LangGraph
+
+LlamaIndex
+
+CrewAI
+
+Semantic Kernel
+
+OpenAI Agents SDK
+
+Google ADK
+
+Mastra
+
+PydanticAI
+
+etc.
+
+Chapter 9. Durable Workflows and Agent Graphs
+
+Compare:
+
+Temporal
+
+Prefect
+
+Dagster
+
+Airflow
+
+LangGraph durable execution
+
+Azure Durable Functions
+
+Workflows vs agents
+
+Part IV — Knowledge and Data Systems
+
+I think this part should be organized as a complete data lifecycle.
+
+Chapter 10. Storage Systems for AI Applications
+
+Instead of "Databases"
+
+Explain:
+
+SQL
+
+NoSQL
+
+Vector DB
+
+Object storage
+
+Graph DB
+
+Redis
+
+Blob storage
+
+Hybrid retrieval indexes
+
+Chapter 11. Data Pipelines, Ingestion, and Knowledge Processing
+
+Current chapter.
+
+Include:
+
+chunking
+
+OCR
+
+parsing
+
+embedding
+
+deduplication
+
+metadata
+
+CDC
+
+incremental indexing
+
+Chapter 12. Retrieval Architectures and RAG Systems
+
+Rename.
+
+Not "frameworks."
+
+Frameworks become only one section.
+
+Major focus:
+
+retrieval
+
+reranking
+
+hybrid search
+
+late interaction
+
+agentic retrieval
+
+query rewriting
+
+context engineering
+
+evaluation
+
+Then compare:
+
+LlamaIndex
+
+Haystack
+
+LangChain
+
+DSPy
+
+etc.
+
+Part V — Reliability, Security, and Governance
+
+Chapter 13. Evaluation, Testing, and Quality Assurance
+
+Include:
+
+golden datasets
+
+LLM-as-judge
+
+human evaluation
+
+regression testing
+
+benchmarking
+
+continuous evaluation
+
+Chapter 14. Security, Safety, Governance, and Policy
+
+Much broader.
+
+Topics:
+
+prompt injection
+
+supply chain
+
+model isolation
+
+PII
+
+guardrails
+
+policy engines
+
+RBAC
+
+ABAC
+
+MCP security
+
+tool security
+
+compliance
+
+AI governance
+
+auditability
+
+Part VI — Production Platform Operations
+
+Chapter 15. Deployment, Registry, and CI/CD
+
+Move deployment BEFORE observability.
+
+Readers first deploy.
+
+Then operate.
+
+Chapter 16. Observability and Incident Investigation
+
+Current chapter.
+
+Expand:
+
+OpenTelemetry
+
+traces
+
+tokens
+
+hallucination detection
+
+prompt logging
+
+latency
+
+GPU metrics
+
+business metrics
+
+Chapter 17. Cost Engineering, Capacity Planning, and FinOps
+
+Current.
+
+Part VII — Engineering Practice
+
+Chapter 18. Architecture Patterns and Decision Frameworks
+
+Rather than blueprints.
+
+Include:
+
+decision matrices
+
+tradeoffs
+
+reference architectures
+
+anti-patterns
+
+maturity models
+
+build vs buy
+
+gateway selection
+
+serving selection
+
+RAG selection
+
+agent selection
+
+Chapter 19. Case Studies and End-to-End Production Architectures
+
+Current.
+
+Include:
+
+enterprise assistant
+
+customer support
+
+coding assistant
+
+internal search
+
+document automation
+
+AI testing platform
+
+GPU cluster
+
+multi-region deployment
+
+real production diagrams
+
+Part VIII — Maintaining an AI Platform
+
+Here's the biggest change.
+
+I would completely replace Chapter 20.
+
+"Source Register" sounds like an appendix.
+
+Books normally don't dedicate a chapter to bibliography management.
+
+Instead:
+
+Chapter 20. Technology Radar and Maintaining an AI Platform
+
+Discuss:
+
+technology obsolescence
+
+vendor churn
+
+benchmark inflation
+
+model replacement
+
+dependency updates
+
+migration planning
+
+evaluation cadence
+
+reference architecture evolution
+
+deprecation strategy
+
+future-proofing
+
+This ends the book with an operational mindset rather than bibliography.
+
+The actual Source Register, maturity tables, benchmark index, and technology inventory belong in appendices, not as a narrative chapter.
+
+# Final book Structure
+
+| Part	| Chapters |	Purpose |
+|-------|----------|----------|
+| I. Foundations and Strategy |	1–2 |	Engineering mindset and architecture selection |
+| II. Models and Inference |	3–5 |	How AI models are selected and executed | 
+| III. AI Platform Runtime	| 6–9	| Runtime infrastructure, gateways, tools, agents, workflows | 
+| IV. Knowledge and Data Systems	| 10–12	| Storage, ingestion, retrieval, RAG | 
+| V. Reliability, Security, and Governance	| 13–14	| Evaluation, safety, policy, governance | 
+| VI. Production Platform Operations	| 15–17	| Deployment, observability, FinOps | 
+| VII. Engineering Practice	| 18–19	| Decision frameworks and real-world architectures | 
+| VIII. Platform Evolution	| 20	| Keeping the platform current over time | 

@@ -1,0 +1,1 @@
+Pre-writting stage: For the topic of this chaper, do some research for recent papers, official documentation, engineering blogs, benchmarks, and standards relevant to the section, with brief summaries and URLs. Rank newer information as more relevant e.g. article from 2026 > same article from 2025. Goals is to collect evidence base for the chapter's content.
