@@ -409,3 +409,6 @@ Similarly, this chapter deliberately avoids detailed discussion of evaluation me
 Finally, architectural decision frameworks, comparative reference architectures, engineering case studies, and long-term platform evolution are intentionally reserved for the concluding chapters of the book. These subjects integrate concepts from every preceding chapter and therefore benefit from readers having first developed a comprehensive understanding of the individual platform components.
 
 The objective of this chapter has been to establish a common vocabulary, define the scope of AI Platform Engineering, and present the conceptual structure of a modern AI platform. The chapters that follow progressively transform this conceptual framework into detailed engineering guidance suitable for designing, deploying, and operating production AI systems.
+
+# Next chapter
+- [Chapter 2. Stack Selection and Reference Architectures](chapter-02.md)

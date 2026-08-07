@@ -19,15 +19,15 @@ Open-source book dedicated for AI Platform Engineering fundamentals and best pra
 
 **Part I - Foundations and Platform Strategy**
 
-- [Chapter 1. Scope, Evidence, and Technology Landscape](Sources/part-1/chapter-01)
-- [Chapter 2. Stack Selection and Reference Architectures](Sources/part-1/chapter-02)
+- [Chapter 1. Scope, Evidence, and Technology Landscape](Sources/part-1/chapter-01.md)
+- [Chapter 2. Stack Selection and Reference Architectures](Sources/part-1/chapter-02.md)
 
 **Part II - Models and Inference**
 
-- [Chapter 3. Commercial Models, APIs, and Managed AI Platforms](Sources/part-2/chapter-03)
-- [Chapter 4. Open-Weight Models, Licensing, and Model Selection](Sources/part-2/chapter-04)
-- [Chapter 5. Inference Engines and Model Serving](Sources/part-2/chapter-05)
+- [Chapter 3. Commercial Models, APIs, and Managed AI Platforms](Sources/part-2/chapter-03.md)
+- [Chapter 4. Open-Weight Models, Licensing, and Model Selection](Sources/part-2/chapter-04.md)
+- [Chapter 5. Inference Engines and Model Serving](Sources/part-2/chapter-05.md)
 
 **Part III — AI Platform Runtime**
 
-- [Chapter 6. AI Gateways and Traffic Management](Sources/part-2/chapter-06)
+- [Chapter 6. AI Gateways and Traffic Management](Sources/part-2/chapter-06.md)

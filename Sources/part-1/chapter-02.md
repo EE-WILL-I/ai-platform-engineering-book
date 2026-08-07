@@ -660,3 +660,6 @@ Finally, the concluding chapters synthesize the material developed throughout th
 This progression mirrors the engineering process itself.
 
 Architects begin by understanding requirements and selecting an overall platform structure. They then evaluate individual technologies within that structure, implement operational capabilities, and continuously refine the platform as technologies evolve. By following the same sequence, the remainder of this book builds from architectural principles toward increasingly detailed engineering guidance while preserving a consistent systems perspective.
+
+# Next chapter
+- [Chapter 3. Commercial Models, APIs, and Managed AI Platforms](/Sources/part-2/chapter-03.md)

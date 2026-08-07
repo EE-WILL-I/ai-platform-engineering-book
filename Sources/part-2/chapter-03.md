@@ -1357,3 +1357,6 @@ Server-Sent Events (HTML Living Standard)
 <https://html.spec.whatwg.org/multipage/server-sent-events.html>
 
 These references provide the evidence base for the architectural concepts presented throughout this chapter and serve as primary resources for readers wishing to explore provider documentation, evaluation methodologies, enterprise integration patterns, and evolving industry standards in greater technical depth.
+
+# Next chapter
+- [Chapter 4. Open-Weight Models, Licensing, and Model Selection](chapter-04.md)
