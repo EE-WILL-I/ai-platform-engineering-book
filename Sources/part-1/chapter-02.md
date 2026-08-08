@@ -1,3 +1,4 @@
+# Chapter 2. Stack Selection and Reference Architectures
 **2.1 Why AI Stack Selection Is Difficult**
 
 Selecting a technology stack has always been one of the central responsibilities of software architects. Database engines, programming languages, messaging systems, cloud providers, and deployment platforms all represent long-term architectural commitments whose consequences extend far beyond initial implementation. Artificial intelligence introduces the same decision-making process, but under conditions of substantially greater technological diversity and a significantly faster rate of change.
@@ -39,7 +40,7 @@ This distinction changes the objective of stack selection. Rather than attemptin
 
 Throughout this chapter, stack selection is treated as an architectural process driven by engineering requirements rather than by individual products. Technologies will inevitably change over the lifetime of an AI platform. A well-designed architecture should allow those changes to occur with minimal disruption.
 
-**2.2 Requirements Before Technology**
+## 2.2 Requirements Before Technology
 
 One of the most common causes of architectural instability is selecting technologies before understanding the requirements they are expected to satisfy. This problem is not unique to AI systems, but the pace of innovation within the AI ecosystem makes the consequences particularly visible. Organizations frequently begin projects by comparing models, orchestration frameworks, or vector databases before they have clearly defined latency objectives, regulatory constraints, operational capabilities, or long-term maintenance expectations.
 
@@ -51,7 +52,7 @@ This distinction appears deceptively simple, yet it fundamentally changes archit
 
 The relationship can therefore be summarized as:
 
-**Requirements → Architecture → Technology → Implementation**
+### Requirements → Architecture → Technology → Implementation**
 
 Reversing this sequence often produces platforms optimized around product capabilities instead of organizational needs. Such systems may initially demonstrate impressive technical features while remaining difficult to govern, operate, scale, or evolve.
 
@@ -83,7 +84,7 @@ An important consequence follows from this framework: identical applications dep
 
 For this reason, the remainder of the chapter avoids presenting any technology stack as universally preferable. Instead, subsequent sections examine the architectural dimensions that allow organizations to evaluate technologies according to their own operational requirements.
 
-**2.3 Architectural Dimensions**
+## 2.3 Architectural Dimensions
 
 Once system requirements have been established, the next step is to determine the architectural dimensions along which design decisions must be made. These dimensions provide a structured framework for comparing alternative technology stacks. Rather than asking whether one product is superior to another, architects evaluate how different combinations of technologies satisfy the requirements introduced in the previous section.
 
@@ -115,7 +116,7 @@ Finally, platform architecture must address **evolution**. AI technologies chang
 
 These dimensions provide the analytical framework for the remainder of the chapter. The following sections apply them to common deployment models and reference architectures, demonstrating how different combinations of architectural decisions produce platforms optimized for different organizational requirements rather than universally "best" technology stacks.
 
-**2.4 Deployment Models**
+## 2.4 Deployment Models
 
 After identifying architectural requirements and the primary dimensions along which AI platforms vary, the next major design decision concerns **where inference capabilities are deployed and operated**. Deployment topology influences nearly every aspect of an AI platform, including security boundaries, networking architecture, operational responsibility, compliance, latency, resilience, and long-term cost. Consequently, deployment models should be viewed as architectural strategies rather than infrastructure implementation details.
 
@@ -191,7 +192,7 @@ Although edge AI receives considerable attention, it remains a specialized deplo
 
 The deployment model establishes the operational boundaries within which an AI platform will evolve. However, it does not determine the technologies used within those boundaries. The next architectural decision concerns the broader question of whether organizations should build platform capabilities internally, adopt managed solutions, or compose platforms from multiple independently managed components.
 
-**2.5 Build, Buy, or Compose**
+## 2.5 Build, Buy, or Compose
 
 Technology selection is often described as a choice between building software internally or purchasing commercial products. While this distinction remains useful, AI platforms increasingly require a third strategy: **composition**. Rather than relying exclusively on internally developed systems or complete commercial platforms, organizations assemble architectures from multiple specialized components connected through standardized interfaces.
 
@@ -257,7 +258,7 @@ Successful platform engineering rarely attempts to maximize internal development
 
 The remainder of this chapter adopts the composable perspective because it best reflects current industry practice. Modern AI platforms are increasingly assembled from interoperable components rather than delivered as monolithic products.
 
-**2.6 Reference Architecture Philosophy**
+## 2.6 Reference Architecture Philosophy
 
 Reference architectures occupy a central role in engineering disciplines because they provide reusable solutions to recurring design problems without prescribing specific implementations. They capture architectural experience accumulated across multiple organizations and projects, enabling engineers to begin from proven structural patterns rather than designing every system from first principles.
 
@@ -329,7 +330,7 @@ Instead, readers should evaluate how well each architecture satisfies the requir
 
 The following sections present several representative AI platform architectures that illustrate how these principles are applied in practice. Although they differ significantly in deployment strategy and operational responsibilities, each is derived from the same architectural dimensions established earlier in the chapter.
 
-**2.7 Reference Architecture A - API-Centric Enterprise Platform**
+## 2.7 Reference Architecture A - API-Centric Enterprise Platform
 
 For many organizations beginning production AI adoption, the most appropriate architecture is also the simplest. Rather than operating inference infrastructure internally, applications consume foundation models through commercially managed APIs while the organization focuses its engineering effort on application development, business integration, governance, and operational reliability.
 
@@ -376,7 +377,7 @@ It is also important to distinguish between **logical simplicity** and **archite
 
 API-centric architectures represent the lowest operational barrier to production AI adoption. They establish many of the architectural patterns explored throughout the remainder of this book while avoiding much of the infrastructure complexity associated with self-managed inference.
 
-**2.8 Reference Architecture B - Hybrid Enterprise Platform**
+## 2.8 Reference Architecture B - Hybrid Enterprise Platform
 
 As organizations gain operational experience with AI systems, requirements frequently expand beyond what a purely API-centric architecture can comfortably support. Some workloads demand greater control over deployment, while others continue to benefit from managed services. Certain datasets may require internal processing due to regulatory constraints, whereas publicly available information can be processed through commercial providers without concern.
 
@@ -430,7 +431,7 @@ Applications should not contain provider-specific routing logic or deployment-sp
 
 Hybrid architectures have become increasingly common because they align well with enterprise technology evolution. Few organizations transition directly from managed services to complete self-hosting. Instead, they gradually expand platform capabilities while preserving existing applications and operational processes.
 
-**2.9 Reference Architecture C - Self-Hosted AI Platform**
+## 2.9 Reference Architecture C - Self-Hosted AI Platform
 
 At the opposite end of the deployment spectrum lies the **self-hosted AI platform**, in which the organization assumes responsibility for operating the complete AI infrastructure stack. Models execute entirely within infrastructure under organizational control, and every major platform component-from inference services to networking, storage, gateways, orchestration, and operational tooling-is managed internally.
 
@@ -491,7 +492,7 @@ It is important to emphasize that self-hosting should not be interpreted as the 
 
 The next section expands this progression by examining architectures that intentionally span multiple AI providers, enabling organizations to optimize workloads across heterogeneous model ecosystems while reducing dependence on any single vendor.
 
-**2.10 Reference Architecture D - Multi-Provider AI Platform**
+## 2.10 Reference Architecture D - Multi-Provider AI Platform
 
 One of the most significant architectural trends in enterprise AI over the past several years has been the movement away from exclusive dependence on a single model provider. Early generative AI applications were often tightly coupled to one commercial API because only a small number of frontier models were widely available. As the ecosystem matured, organizations increasingly recognized that no individual provider consistently offers the best solution across every workload, geographic region, pricing model, or regulatory environment.
 
@@ -535,7 +536,7 @@ The implementation of routing mechanisms, policy engines, retries, traffic shapi
 
 A multi-provider architecture illustrates one of the central themes of this book: modern AI platforms increasingly resemble mature distributed systems. Their value derives not from exclusive dependence on a particular technology but from the ability to integrate, govern, and evolve multiple technologies over time.
 
-**2.11 Architectural Trade-offs**
+## 2.11 Architectural Trade-offs
 
 The reference architectures presented in the preceding sections demonstrate that AI platform design rarely involves choosing between "correct" and "incorrect" solutions. Instead, architects continually balance competing objectives whose relative importance varies across organizations.
 
@@ -586,7 +587,7 @@ The trade-offs themselves remain remarkably stable even though individual techno
 
 For this reason, platform engineers should resist evaluating technologies in isolation. Architectural quality depends upon how well multiple design decisions reinforce one another within the context of organizational requirements.
 
-**2.12 Common Architectural Anti-Patterns**
+## 2.12 Common Architectural Anti-Patterns
 
 Reference architectures describe proven design approaches, but understanding common failure modes is equally valuable. Many difficulties encountered during AI platform adoption arise not from limitations of foundation models but from architectural decisions that unnecessarily increase operational complexity, reduce flexibility, or couple applications to rapidly evolving technologies.
 
@@ -631,7 +632,7 @@ In reality, production systems derive much of their reliability from surrounding
 
 Most of these anti-patterns share a common characteristic: they optimize for short-term implementation convenience at the expense of long-term architectural adaptability. Well-designed platforms instead prioritize modularity, stable interfaces, and clear separation of responsibilities.
 
-**2.13 Connecting Architecture to the Rest of the Book**
+## 2.13 Connecting Architecture to the Rest of the Book
 
 The purpose of this chapter has been to establish a structured framework for selecting AI platform architectures rather than recommending individual technologies. By examining deployment models, architectural dimensions, reference architectures, and engineering trade-offs, the discussion has emphasized that successful AI platforms emerge from deliberate architectural reasoning rather than product selection alone.
 

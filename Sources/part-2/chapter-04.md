@@ -1,6 +1,5 @@
-**4. Open-Weight Models, Licensing, and Model Selection**
-
-Introduction
+# Chapter 4. Open-Weight Models, Licensing, and Model Selection
+**4.1 Introduction**
 
 The emergence of open-weight foundation models has fundamentally changed how organizations design and operate AI platforms. Only a few years ago, deploying state-of-the-art large language models generally meant consuming proprietary APIs operated by a small number of vendors. Today, enterprises can choose from a rapidly expanding ecosystem of openly distributed model weights, serving frameworks, optimization toolchains, and deployment platforms. This shift has transformed model selection from a procurement decision into an architectural discipline involving infrastructure design, licensing analysis, hardware planning, operational readiness, and long-term platform governance.
 
@@ -18,7 +17,7 @@ This chapter examines these developments from the perspective of AI platform eng
 
 Several implementation topics introduced here are explored in greater detail later in the book. In particular, Chapter 5 examines how selected models are executed by modern inference engines, including scheduling algorithms, key-value (KV) cache management, continuous batching, tensor parallelism, speculative decoding, and serving architectures. Chapter 13 discusses systematic model evaluation and regression testing, while Chapters 15 through 17 address deployment, observability, and operational cost management. Throughout this chapter, the focus remains on selecting appropriate models rather than on the mechanics of serving or operating them.
 
-# 4.1 Evolution of Open-Weight Foundation Models
+## 4.1 Evolution of Open-Weight Foundation Models
 
 The contemporary open-weight ecosystem did not emerge from a single technological breakthrough. Instead, it evolved through a series of shifts in research culture, hardware capabilities, software tooling, and industry incentives. Understanding this evolution provides important context for current model selection decisions because many characteristics of today's ecosystem-including licensing models, community practices, benchmark methodologies, and deployment tooling-reflect design decisions made over several generations of language models.
 
@@ -26,7 +25,7 @@ The trajectory can be divided into three broad phases. The first phase was domin
 
 Each phase expanded not only model capabilities but also the surrounding infrastructure. Improvements in tokenizers, inference engines, quantization methods, model repositories, evaluation frameworks, and serving platforms have become as important as improvements in model quality itself. Consequently, selecting an open-weight model today requires evaluating an entire ecosystem rather than a single neural network.
 
-## Early Transformer Releases
+### Early Transformer Releases
 
 Before the transformer architecture was introduced, most natural language processing systems relied on recurrent neural networks (RNNs), long short-term memory (LSTM) networks, or gated recurrent units (GRUs). These architectures processed tokens sequentially, limiting parallelization during training and making it increasingly difficult to scale to larger datasets and longer contexts.
 
@@ -48,7 +47,7 @@ Nevertheless, this early period established several foundational engineering pri
 
 Perhaps the most important legacy of this period was cultural rather than technical. Research communities increasingly embraced reproducibility through publicly released checkpoints, benchmark datasets, and open software frameworks. This culture laid the foundation for the collaborative ecosystem that would later accelerate the development of open-weight foundation models.
 
-## The LLaMA Turning Point
+### The LLaMA Turning Point
 
 The release of the first LLaMA (Large Language Model Meta AI) family represented a defining moment in the evolution of open-weight language models. Although earlier transformer models had been publicly available, LLaMA demonstrated that relatively compact foundation models could achieve performance approaching much larger proprietary systems while remaining practical to deploy on accessible hardware.
 
@@ -72,7 +71,7 @@ Perhaps the most lasting consequence of the LLaMA era was the emergence of genui
 
 For AI platform engineers, this shift changed the nature of model selection. Rather than choosing between a few proprietary APIs, organizations could now evaluate dozens of viable model families across multiple hardware targets, licensing models, and deployment strategies. Model selection became an ongoing engineering discipline requiring continuous assessment rather than a one-time procurement decision.
 
-## Current Open-Weight Ecosystem
+### Current Open-Weight Ecosystem
 
 The modern open-weight ecosystem is characterized by diversity rather than convergence. There is no universally superior model family, and organizations rarely standardize on a single model across all workloads. Instead, production AI platforms increasingly maintain portfolios of models optimized for different latency requirements, hardware environments, regulatory constraints, and application domains.
 
@@ -108,7 +107,7 @@ Rather than competing along a single performance dimension, these model families
 
 As the ecosystem continues to evolve, successful AI platforms increasingly rely on standardized evaluation processes that allow multiple model families to be assessed consistently against production requirements. The following sections examine the architectural, licensing, and operational characteristics that enable such evaluations and form the foundation of evidence-based model selection.
 
-**4.2 Model Architecture Characteristics**
+## 4.2 Model Architecture Characteristics
 
 Selecting an open-weight model begins with understanding its architectural characteristics. Although benchmark rankings often dominate public discussion, architecture ultimately determines many of the operational properties that matter in production: inference latency, memory consumption, scalability, hardware utilization, deployment complexity, and long-term maintainability. Two models with similar benchmark scores may exhibit significantly different operational behavior because they are built upon different architectural assumptions.
 
@@ -125,7 +124,7 @@ Although dozens of architectural variants have been proposed in recent years, mo
 
 These categories are not mutually exclusive. A modern model may simultaneously be decoder-only, multimodal, long-context capable, and employ a Mixture-of-Experts architecture. Understanding the engineering implications of each characteristic enables more informed deployment decisions.
 
-# 4.2.1 Decoder-Only Models
+## 4.2.1 Decoder-Only Models
 
 Decoder-only transformers have become the dominant architecture for modern generative language models. Nearly every major open-weight family-including Llama, Qwen, Mistral, Gemma, Granite, Phi, Falcon, and many others-belongs primarily to this architectural category.
 
@@ -133,7 +132,7 @@ Unlike encoder-decoder architectures originally popularized by sequence-to-seque
 
 From the user's perspective, this process appears as continuous text generation. Internally, however, the model repeatedly performs forward passes over the growing context while maintaining intermediate state that accelerates subsequent predictions. Although the mathematical details are beyond the scope of this chapter, this autoregressive behavior fundamentally shapes nearly every aspect of production inference.
 
-## Why Decoder-Only Models Became Dominant
+### Why Decoder-Only Models Became Dominant
 
 Several factors contributed to the widespread adoption of decoder-only architectures.
 
@@ -145,7 +144,7 @@ Third, decoder-only models adapt effectively to instruction tuning. Once pretrai
 
 Finally, the software ecosystem has converged around decoder-only assumptions. Modern inference engines, tokenizer libraries, quantization frameworks, and serving platforms primarily target autoregressive transformer workloads, resulting in extensive optimization across the entire deployment stack.
 
-## Operational Characteristics
+### Operational Characteristics
 
 From an infrastructure perspective, decoder-only models exhibit several important properties.
 
@@ -157,7 +156,7 @@ Decoder-only models also benefit substantially from batching. Multiple user requ
 
 These operational considerations illustrate why model architecture cannot be evaluated independently from deployment infrastructure. A model that performs exceptionally well in offline benchmarks may still require sophisticated serving techniques to achieve acceptable production latency.
 
-## Limitations
+### Limitations
 
 Despite their success, decoder-only models possess several limitations relevant to platform engineers.
 
@@ -171,7 +170,7 @@ Finally, decoder-only architectures remain susceptible to hallucination, prompt 
 
 For most enterprise applications, these limitations are mitigated through retrieval augmentation, prompt engineering, tool integration, and application-level safeguards rather than through architectural modifications alone.
 
-# 4.2.2 Mixture-of-Experts Models
+## 4.2.2 Mixture-of-Experts Models
 
 One of the most significant architectural developments in modern foundation models is the resurgence of the Mixture-of-Experts (MoE) architecture. While the underlying concept has existed in machine learning research for decades, recent advances have made MoE practical for production-scale language models.
 
@@ -181,7 +180,7 @@ Mixture-of-Experts architectures introduce conditional computation. Instead of a
 
 This distinction is important because total parameter count no longer corresponds directly to computational cost.
 
-## Engineering Motivation
+### Engineering Motivation
 
 The motivation behind MoE architectures is straightforward: increase model capacity without proportionally increasing inference cost.
 
@@ -193,7 +192,7 @@ Conceptually, one can think of a MoE model as a team of specialists rather than 
 
 Although simplified, this analogy captures the central engineering objective: conditional computation improves efficiency by avoiding unnecessary work.
 
-## Operational Implications
+### Operational Implications
 
 For AI platform engineers, MoE models introduce both opportunities and additional operational complexity.
 
@@ -211,7 +210,7 @@ Serving systems must also coordinate expert execution efficiently across availab
 
 These challenges primarily concern inference engine implementation rather than model selection itself. Consequently, detailed discussions of expert routing, distributed execution, communication strategies, and scheduling algorithms are deferred to Chapter 5.
 
-## Deployment Considerations
+### Deployment Considerations
 
 From a deployment perspective, organizations should recognize that MoE models often exhibit different hardware utilization characteristics than dense models.
 
@@ -223,7 +222,7 @@ Latency characteristics can vary depending on routing behavior and serving imple
 
 These factors make benchmarking particularly important. Published benchmark scores should always be interpreted alongside deployment characteristics measured within the organization's own infrastructure.
 
-## Limitations
+### Limitations
 
 MoE architectures should not be viewed as universally superior to dense transformers.
 
@@ -237,7 +236,7 @@ Smaller deployment environments may derive limited benefit if infrastructure can
 
 For these reasons, model selection should evaluate the complete deployment ecosystem rather than assuming that sparse architectures automatically outperform dense alternatives.
 
-# 4.2.3 Multimodal Architectures
+## 4.2.3 Multimodal Architectures
 
 Early language models operated exclusively on text. Modern foundation models increasingly process multiple forms of information-including images, documents, diagrams, audio, and in some cases video-within a unified inference pipeline.
 
@@ -245,7 +244,7 @@ These systems are commonly described as multimodal models because they operate a
 
 Multimodal capability has become increasingly important for enterprise AI platforms. Many real-world workflows involve documents containing both text and graphics, scanned PDFs, engineering diagrams, medical imagery, screenshots, or photographs. Restricting AI systems to plain text often requires separate preprocessing pipelines that increase system complexity.
 
-## Architectural Overview
+### Architectural Overview
 
 Most contemporary multimodal language models extend an existing decoder-only language model rather than replacing it entirely.
 
@@ -257,7 +256,7 @@ Similar principles apply to audio processing, document understanding, and increa
 
 The language model itself often remains largely unchanged. Instead, modality-specific encoders act as translation layers that convert external data into representations the language model can process.
 
-## Engineering Implications
+### Engineering Implications
 
 For platform engineers, multimodal capability introduces several practical considerations.
 
@@ -273,7 +272,7 @@ Networking requirements may increase because requests contain substantially larg
 
 These operational considerations reinforce the importance of viewing multimodal AI as a complete processing pipeline rather than merely a larger language model.
 
-## Enterprise Applications
+### Enterprise Applications
 
 Multimodal models enable numerous production scenarios that text-only systems cannot address effectively.
 
@@ -291,7 +290,7 @@ The value of multimodal capability therefore depends heavily on business require
 
 Organizations processing predominantly textual information may derive little benefit from multimodal models while incurring additional infrastructure complexity.
 
-## Limitations
+### Limitations
 
 Despite rapid progress, multimodal systems remain operationally more complex than text-only deployments.
 
@@ -305,7 +304,7 @@ Security considerations expand because image and document uploads introduce new 
 
 Many production systems therefore isolate multimodal processing into dedicated services rather than assuming every AI application requires visual understanding.
 
-# 4.2.4 Long-Context Architectures
+## 4.2.4 Long-Context Architectures
 
 One of the most visible trends in modern foundation models is the rapid expansion of context windows. Models that originally accepted only a few thousand tokens have evolved into systems capable of processing hundreds of thousands-and in some cases millions-of tokens within a single request.
 
@@ -313,7 +312,7 @@ From a user perspective, longer context windows appear straightforward: more doc
 
 From an engineering perspective, however, long-context capability represents a complex architectural trade-off involving memory consumption, computational efficiency, attention mechanisms, and application design.
 
-## Motivation
+### Motivation
 
 Organizations increasingly expect AI systems to analyze complete technical documents, legal contracts, software repositories, financial reports, conversation histories, and large collections of reference material.
 
@@ -327,7 +326,7 @@ Providing every available document to the model remains computationally expensiv
 
 Consequently, retrieval architecture remains an essential component of production AI platforms and is discussed extensively in Chapter 12.
 
-## Architectural Evolution
+### Architectural Evolution
 
 Supporting longer contexts requires modifications beyond simply increasing positional limits.
 
@@ -337,7 +336,7 @@ Different model families adopt different approaches, each involving trade-offs a
 
 Although these techniques vary internally, their practical objective is consistent: maintain useful reasoning performance as context length increases.
 
-## Operational Implications
+### Operational Implications
 
 Long-context capability directly influences infrastructure planning.
 
@@ -351,7 +350,7 @@ Batching efficiency may decrease when requests vary significantly in length.
 
 The serving infrastructure responsible for managing these behaviors is discussed in Chapter 5. Here it is sufficient to recognize that context length affects infrastructure requirements almost as much as parameter count.
 
-## Long Context Versus Retrieval
+### Long Context Versus Retrieval
 
 A common misconception is that sufficiently long context windows eliminate the need for retrieval-augmented generation (RAG).
 
@@ -365,7 +364,7 @@ Production systems increasingly combine both approaches, retrieving high-quality
 
 Chapter 12 examines these retrieval strategies in detail.
 
-## Limitations
+### Limitations
 
 Long-context architectures introduce several trade-offs.
 
@@ -390,7 +389,7 @@ Finally, published maximum context lengths should be interpreted cautiously. A m
 
 The architectural characteristics discussed in this section should not be viewed as competing alternatives from which a single winner emerges. Modern open-weight models increasingly combine several of these capabilities within the same foundation model. Consequently, model selection requires evaluating how these architectural features align with organizational requirements, infrastructure constraints, and operational objectives. The next section examines another equally important dimension of model selection: licensing, which often determines whether a technically suitable model can be deployed in production at all.
 
-# 4.3 Understanding Model Licenses
+## 4.3 Understanding Model Licenses
 
 Technical capability is only one dimension of model selection. Before an organization commits to deploying an open-weight model, it must determine whether the model can be used legally within the intended business context. A model that achieves state-of-the-art benchmark performance may be unusable because of licensing restrictions, while a technically less capable alternative may become the preferred choice because it provides greater legal certainty and operational flexibility.
 
@@ -400,7 +399,7 @@ Consequently, licensing analysis should be treated as part of architectural due 
 
 This section provides an engineering-oriented overview of AI licensing. It is not intended as legal advice. Organizations deploying AI systems in production should always review the complete license text and consult legal counsel when necessary, particularly for commercial products, regulated industries, or international deployments.
 
-# 4.3.1 Why AI Licensing Is Different
+## 4.3.1 Why AI Licensing Is Different
 
 Most software licenses govern executable code or source code. AI systems introduce several additional categories of intellectual property that do not fit neatly into traditional software licensing frameworks.
 
@@ -439,7 +438,7 @@ The distinction becomes particularly important for platform engineers because pr
 
 Licensing therefore becomes an operational concern rather than simply a legal formality.
 
-## Multiple Intellectual Property Layers
+### Multiple Intellectual Property Layers
 
 Understanding AI licensing requires recognizing that several intellectual property layers coexist within a modern AI platform.
 
@@ -461,7 +460,7 @@ Because these layers evolve independently, upgrading one component may change li
 
 Platform engineering teams should therefore maintain inventories of both software dependencies and deployed model assets. Chapter 20 returns to this topic when discussing long-term platform maintenance and technology governance.
 
-# 4.3.2 Open Source Versus Open Weight
+## 4.3.2 Open Source Versus Open Weight
 
 One of the most common misconceptions in contemporary AI discussions is the assumption that publicly downloadable model weights are equivalent to open-source software.
 
@@ -497,7 +496,7 @@ They do not necessarily receive complete reproducibility.
 
 Nor do they necessarily receive unrestricted modification or redistribution rights.
 
-## Why the Distinction Matters
+### Why the Distinction Matters
 
 For platform engineers, the distinction between open source and open weight has practical consequences.
 
@@ -527,7 +526,7 @@ Conversely, certain models governed by custom licenses enjoy extensive ecosystem
 
 Platform architects should therefore evaluate openness, licensing flexibility, ecosystem maturity, and long-term sustainability as separate dimensions rather than assuming they correlate automatically.
 
-# 4.3.3 Commercial Restrictions
+## 4.3.3 Commercial Restrictions
 
 Commercial deployment introduces licensing considerations that individual experimentation rarely encounters.
 
@@ -535,7 +534,7 @@ Running a model locally for research is generally much simpler from a licensing 
 
 Organizations should therefore examine commercial restrictions before beginning technical integration.
 
-## Commercial Use
+### Commercial Use
 
 The first question concerns whether commercial use is explicitly permitted.
 
@@ -551,7 +550,7 @@ Assumptions based on traditional open-source software should therefore be avoide
 
 Commercial deployment rights should always be confirmed directly from the applicable model license.
 
-## Redistribution
+### Redistribution
 
 Redistribution rights determine whether organizations may package and distribute model weights.
 
@@ -567,7 +566,7 @@ Others distinguish between original and modified weights.
 
 The distinction between distributing model files and exposing hosted inference APIs can have significant legal implications.
 
-## Derivative Models
+### Derivative Models
 
 Many production systems rely on instruction tuning, domain adaptation, parameter-efficient fine-tuning, or model merging.
 
@@ -577,7 +576,7 @@ Organizations should verify whether modified weights may be redistributed, comme
 
 This consideration becomes especially important for consulting companies delivering customized AI systems.
 
-## Acceptable Use Policies
+### Acceptable Use Policies
 
 Modern AI licenses increasingly incorporate acceptable use policies.
 
@@ -598,7 +597,7 @@ Platform teams should therefore coordinate with governance and security function
 
 Chapter 14 examines policy enforcement, governance frameworks, and operational compliance mechanisms in greater detail.
 
-## Branding and Attribution
+### Branding and Attribution
 
 Certain licenses specify how model names, trademarks, or branding may be used.
 
@@ -606,7 +605,7 @@ An organization may be permitted to deploy a model while prohibited from implyin
 
 Marketing materials, documentation, and customer-facing interfaces should therefore distinguish between technical compatibility and official partnership.
 
-## Export Controls and Regulatory Considerations
+### Export Controls and Regulatory Considerations
 
 AI models increasingly intersect with international trade regulations and export controls.
 
@@ -614,13 +613,13 @@ Although these obligations generally arise from applicable law rather than model
 
 Deployment architecture, hosting location, customer geography, and data residency may introduce additional legal considerations beyond the model license.
 
-# 4.3.4 Major AI Licenses
+## 4.3.4 Major AI Licenses
 
 Unlike traditional software ecosystems, the AI community currently employs a mixture of established software licenses, custom model licenses, research licenses, and responsible AI agreements.
 
 Understanding their general characteristics helps platform engineers perform initial model evaluation before engaging legal specialists.
 
-## Apache License 2.0
+### Apache License 2.0
 
 Apache 2.0 remains one of the most widely accepted licenses for commercial software.
 
@@ -630,7 +629,7 @@ Several prominent open-weight model families have adopted Apache licensing for a
 
 For platform teams, Apache-licensed models typically present the lowest licensing friction among widely adopted options.
 
-## MIT and BSD Licenses
+### MIT and BSD Licenses
 
 MIT and BSD licenses are highly permissive software licenses emphasizing simplicity.
 
@@ -638,7 +637,7 @@ Although less common for complete foundation model releases than Apache 2.0, the
 
 Their permissive nature generally simplifies integration into commercial products.
 
-## Llama Community License
+### Llama Community License
 
 Meta introduced the Llama Community License specifically for the Llama model family.
 
@@ -648,7 +647,7 @@ It includes AI-specific terms governing redistribution, branding, and certain us
 
 Because the license has evolved across model generations, organizations should review the specific version associated with the intended release rather than assuming all Llama models share identical licensing conditions.
 
-## Gemma License
+### Gemma License
 
 Google distributes Gemma models under custom terms designed specifically for AI models.
 
@@ -656,7 +655,7 @@ These licenses generally support broad experimentation and commercial deployment
 
 As with other vendor-specific licenses, organizations should evaluate each release independently because terms may evolve over time.
 
-## OpenRAIL Licenses
+### OpenRAIL Licenses
 
 The Responsible AI License (RAIL) family represents an attempt to combine broad accessibility with explicit behavioral restrictions.
 
@@ -666,7 +665,7 @@ Although originally associated with generative image models, RAIL-style licensin
 
 Organizations considering RAIL-governed models should evaluate both technical suitability and operational ability to comply with behavioral restrictions.
 
-## Research Licenses
+### Research Licenses
 
 Some models remain available primarily for academic or non-commercial research.
 
@@ -674,7 +673,7 @@ These licenses often prohibit commercial deployment entirely or require separate
 
 While valuable for experimentation and benchmarking, research-only models generally should not be considered production candidates without careful licensing review.
 
-## Custom Vendor Licenses
+### Custom Vendor Licenses
 
 An increasing number of organizations publish model-specific licenses rather than adopting existing software licenses.
 
@@ -703,7 +702,7 @@ Licensing is ultimately a risk management activity. Selecting a model solely bec
 
 The next sections build upon this legal foundation by examining how engineers evaluate model quality, interpret benchmark results, and compare competing models using evidence rather than marketing claims.
 
-# 4.4 Evaluating Model Quality
+## 4.4 Evaluating Model Quality
 
 Selecting a foundation model is ultimately an exercise in evidence-based engineering. While architecture, licensing, hardware compatibility, and ecosystem maturity determine whether a model can be deployed successfully, model evaluation determines whether it is capable of solving the intended problem with sufficient quality. Without systematic evaluation, model selection becomes driven by marketing announcements, benchmark leaderboards, anecdotal reports, or individual preference rather than measurable engineering evidence.
 
@@ -713,7 +712,7 @@ No single benchmark captures overall model quality. Language models perform many
 
 The goal of this section is not to recommend particular leaderboards but to provide a framework for interpreting evaluation results critically. Rather than asking whether one model ranks above another on a public benchmark, platform engineers should ask whether the benchmark measures capabilities that matter for the intended production workload.
 
-# 4.4.1 Why Benchmarks Can Be Misleading
+## 4.4.1 Why Benchmarks Can Be Misleading
 
 Benchmarks have long been an essential tool in computer science. Standardized datasets enable researchers and practitioners to compare systems under consistent conditions, identify architectural improvements, and measure progress over time. Similar principles apply to foundation models. Public benchmarks provide valuable information about language understanding, reasoning ability, coding performance, mathematical competence, and other capabilities.
 
@@ -733,11 +732,11 @@ Finally, public benchmark reports rarely capture operational characteristics tha
 
 For these reasons, benchmarks should be viewed as indicators rather than definitive measures of production suitability.
 
-# 4.4.2 Common AI Benchmarks
+## 4.4.2 Common AI Benchmarks
 
 The modern evaluation ecosystem includes hundreds of benchmarks covering different aspects of language model capability. While new benchmarks continue to emerge, several have become widely recognized because they measure capabilities important for production AI systems.
 
-## MMLU
+### MMLU
 
 Massive Multitask Language Understanding (MMLU) evaluates knowledge across dozens of academic disciplines, including mathematics, history, law, biology, economics, computer science, medicine, and philosophy. Questions are typically multiple-choice and span undergraduate through professional-level subject matter.
 
@@ -745,7 +744,7 @@ MMLU became one of the earliest comprehensive benchmarks for comparing general-p
 
 For production engineering, MMLU is useful for estimating a model's overall knowledge base. However, it provides limited information regarding coding ability, conversational quality, document processing, or enterprise workflows. High MMLU performance should therefore be interpreted as one component of overall capability rather than a comprehensive quality indicator.
 
-## GPQA
+### GPQA
 
 Graduate-Level Google-Proof Q&A (GPQA) focuses on difficult scientific reasoning questions intended to resist straightforward memorization or web search. Questions require reasoning across advanced domains such as biology, chemistry, and physics.
 
@@ -753,7 +752,7 @@ Compared with earlier benchmarks, GPQA places greater emphasis on reasoning rath
 
 Nevertheless, organizations deploying customer support assistants or document analysis platforms may derive relatively little value from improvements on GPQA if scientific reasoning is not central to their applications.
 
-## HumanEval
+### HumanEval
 
 HumanEval remains one of the most influential benchmarks for evaluating code generation. Models are asked to produce executable Python functions that satisfy predefined unit tests.
 
@@ -761,7 +760,7 @@ Unlike multiple-choice evaluations, HumanEval measures whether generated code be
 
 For engineering organizations building software development assistants, HumanEval provides valuable insight into code synthesis capability. However, it should not be interpreted as a complete assessment of software engineering competence. Modern development involves code comprehension, debugging, architecture, documentation, testing, and repository navigation-tasks extending well beyond isolated function generation.
 
-## SWE-bench
+### SWE-bench
 
 SWE-bench addresses many limitations of earlier coding benchmarks by evaluating whether language models can resolve actual issues drawn from open-source software repositories.
 
@@ -771,7 +770,7 @@ This benchmark more closely resembles real software engineering workflows and ha
 
 For platform engineers supporting internal coding assistants, SWE-bench generally provides more representative evidence than HumanEval alone.
 
-## MATH
+### MATH
 
 The MATH benchmark evaluates mathematical reasoning across algebra, geometry, probability, calculus, and other mathematical disciplines.
 
@@ -779,7 +778,7 @@ Unlike knowledge-oriented benchmarks, mathematical evaluation frequently require
 
 Performance on mathematical benchmarks often correlates with broader reasoning capability, although domain-specific validation remains necessary for production applications.
 
-## MMMU
+### MMMU
 
 Massive Multi-discipline Multimodal Understanding (MMMU) extends evaluation beyond text by incorporating visual reasoning tasks involving diagrams, charts, technical illustrations, and scientific figures.
 
@@ -787,7 +786,7 @@ As multimodal foundation models become increasingly common, benchmarks such as M
 
 Organizations deploying document intelligence or image-assisted AI systems should therefore consider multimodal benchmarks alongside traditional language evaluations.
 
-## LiveBench
+### LiveBench
 
 One challenge affecting many established benchmarks is dataset contamination. LiveBench attempts to mitigate this problem by introducing continuously updated evaluation tasks that are less likely to have appeared during model training.
 
@@ -795,7 +794,7 @@ Dynamic benchmark construction reduces the likelihood that improvements result p
 
 Although newer than many established benchmarks, LiveBench illustrates an important trend within the evaluation community: benchmark freshness has become increasingly valuable as language model training datasets continue to expand.
 
-## Arena-Style Evaluations
+### Arena-Style Evaluations
 
 Not all benchmarks rely on predefined question-answer datasets.
 
@@ -822,7 +821,7 @@ However, preference-based evaluation should not replace objective correctness te
 
 No benchmark should be interpreted in isolation. Effective evaluation combines multiple complementary measurements representing the capabilities required by the target application.
 
-# 4.4.3 Human Evaluation
+## 4.4.3 Human Evaluation
 
 Despite substantial progress in automated benchmarking, human evaluation remains an essential component of model assessment. Many characteristics that determine user satisfaction-including clarity, coherence, usefulness, tone, instruction following, and contextual appropriateness-cannot be fully captured through automated metrics.
 
@@ -848,7 +847,7 @@ Large-scale evaluation becomes difficult to automate.
 
 Consequently, human evaluation is most effective when combined with automated testing rather than replacing it entirely.
 
-# 4.4.4 Task-Specific Evaluation
+## 4.4.4 Task-Specific Evaluation
 
 Public benchmarks provide valuable reference points, but no organization should assume that public benchmark rankings directly predict success within its own environment.
 
@@ -884,7 +883,7 @@ Developing such evaluation systems requires dedicated processes for dataset mana
 
 For the purposes of model selection, however, the central principle is straightforward: public benchmarks should inform decisions, but they should never replace organization-specific evidence. The most successful AI platforms treat benchmark results as the starting point for evaluation rather than its conclusion.
 
-# 4.5 Model Size, Scaling Laws, and Capability
+## 4.5 Model Size, Scaling Laws, and Capability
 
 One of the most visible characteristics of a foundation model is its parameter count. Model announcements frequently emphasize the number of billions or trillions of parameters as an indicator of capability, and public discussions often compare models primarily according to size. While parameter count remains an important engineering consideration, it is only one factor among many that determine production performance.
 
@@ -896,7 +895,7 @@ The concept of **scaling laws** provides useful context. Research over the past 
 
 For production AI platforms, the engineering objective is not to maximize parameter count but to identify the smallest model capable of meeting quality objectives within operational constraints.
 
-# 4.5.1 Parameter Count
+## 4.5.1 Parameter Count
 
 Parameter count represents the number of learned numerical values contained within a neural network. During training, these parameters are adjusted to capture statistical relationships within the training data. During inference, they determine how the model transforms input tokens into output predictions.
 
@@ -904,7 +903,7 @@ Because parameter count is easy to communicate, it has become one of the most wi
 
 Although parameter count provides useful information, it should not be interpreted as a direct measure of intelligence or production quality.
 
-## What Larger Models Usually Provide
+### What Larger Models Usually Provide
 
 Increasing parameter count generally allows models to represent more complex patterns learned during training.
 
@@ -922,7 +921,7 @@ These improvements arise because additional parameters increase the model's repr
 
 However, these gains depend heavily on appropriate training. Simply increasing parameter count without sufficient data quality or training compute does not guarantee improved performance.
 
-## Engineering Costs of Larger Models
+### Engineering Costs of Larger Models
 
 From an infrastructure perspective, increasing model size has immediate operational consequences.
 
@@ -941,7 +940,7 @@ A model that requires twice as much GPU memory typically increases hardware acqu
 
 For organizations operating AI services at scale, these factors often outweigh modest improvements in benchmark performance.
 
-## Why Parameter Count Alone Is Insufficient
+### Why Parameter Count Alone Is Insufficient
 
 Modern language models illustrate that parameter count alone no longer predicts capability reliably.
 
@@ -963,7 +962,7 @@ As a result, a contemporary medium-sized model may outperform an older model con
 
 Historical comparisons demonstrate this trend clearly. Models released only a few years apart often differ dramatically in quality despite comparable-or even smaller-parameter counts. Consequently, organizations should evaluate contemporary benchmark evidence rather than relying on assumptions derived from earlier generations of language models.
 
-# 4.5.2 Dense Versus Sparse Models
+## 4.5.2 Dense Versus Sparse Models
 
 The interpretation of model size has become more complex with the widespread adoption of Mixture-of-Experts architectures.
 
@@ -975,7 +974,7 @@ A sparse model may contain hundreds of billions of parameters while activating o
 
 This distinction introduces several engineering considerations.
 
-## Effective Capacity
+### Effective Capacity
 
 Sparse models increase representational capacity without proportionally increasing computation.
 
@@ -983,7 +982,7 @@ Instead of requiring every parameter to process every token, specialized experts
 
 As discussed in Section 4.2, this allows models to scale beyond what would be economically feasible using dense architectures alone.
 
-## Active Parameters
+### Active Parameters
 
 When evaluating sparse models, engineers should distinguish between:
 
@@ -994,7 +993,7 @@ Two models advertising similar total parameter counts may require substantially 
 
 This distinction is increasingly important when estimating inference cost, hardware utilization, and deployment feasibility.
 
-## Operational Trade-offs
+### Operational Trade-offs
 
 Sparse architectures introduce greater implementation complexity.
 
@@ -1010,7 +1009,7 @@ Their deployment characteristics differ substantially.
 
 Organizations evaluating sparse architectures should therefore consider benchmark performance together with infrastructure complexity rather than focusing exclusively on total parameter count.
 
-# 4.5.3 Context Window Trade-offs
+## 4.5.3 Context Window Trade-offs
 
 Parameter count describes model capacity.
 
@@ -1022,7 +1021,7 @@ A relatively small model may support an extremely long context window.
 
 Conversely, an extremely large model may operate with comparatively modest context limits.
 
-## Why Context Length Matters
+### Why Context Length Matters
 
 Enterprise AI applications increasingly process:
 
@@ -1038,7 +1037,7 @@ Larger context windows reduce the need to divide these resources into numerous s
 
 This often improves coherence because the model can reason across larger portions of the available information.
 
-## Engineering Trade-offs
+### Engineering Trade-offs
 
 Longer context windows introduce significant operational costs.
 
@@ -1052,7 +1051,7 @@ Infrastructure planning therefore becomes increasingly dependent on prompt chara
 
 These considerations become particularly important for production platforms serving multiple applications with widely varying request sizes.
 
-## Long Context Does Not Replace Retrieval
+### Long Context Does Not Replace Retrieval
 
 One common misconception is that sufficiently long context windows eliminate retrieval systems.
 
@@ -1068,7 +1067,7 @@ Consequently, modern production architectures increasingly combine retrieval sys
 
 The design of retrieval architectures and context engineering is examined comprehensively in Chapter 12.
 
-## Context Quality Versus Context Quantity
+### Context Quality Versus Context Quantity
 
 Another important distinction concerns maximum supported context versus effective context utilization.
 
@@ -1078,7 +1077,7 @@ Therefore, published maximum context lengths should be interpreted as engineerin
 
 Organizations deploying long-context applications should validate practical performance using representative workloads rather than relying exclusively on vendor specifications.
 
-# 4.5.4 Instruction-Tuned Versus Base Models
+## 4.5.4 Instruction-Tuned Versus Base Models
 
 Another important dimension of model capability concerns training objective rather than architecture or size.
 
@@ -1086,7 +1085,7 @@ Most modern model families are available in multiple variants, typically includi
 
 Although both versions share the same underlying architecture, their intended production uses differ significantly.
 
-## Base Models
+### Base Models
 
 Base models are trained primarily to predict the next token from large collections of text.
 
@@ -1098,7 +1097,7 @@ Base models remain valuable for research, continued pretraining, domain adaptati
 
 However, they rarely represent the preferred choice for general-purpose conversational applications.
 
-## Instruction-Tuned Models
+### Instruction-Tuned Models
 
 Instruction tuning adapts pretrained models to follow natural language instructions more effectively.
 
@@ -1117,7 +1116,7 @@ These models generally provide:
 
 The improvement often exceeds what could be achieved by modest increases in parameter count alone.
 
-## Production Considerations
+### Production Considerations
 
 For platform engineers, selecting between base and instruction-tuned models depends primarily on intended workload.
 
@@ -1155,7 +1154,7 @@ At the same time, hardware planning has become considerably more flexible than d
 
 This section examines hardware considerations from the perspective of model selection rather than infrastructure implementation. Topics such as distributed inference, tensor parallelism, pipeline parallelism, GPU scheduling, and serving optimization are addressed in Chapter 5, while capacity planning and infrastructure economics are discussed in Chapter 17.
 
-# 4.6.1 GPU Memory Requirements
+## 4.6.1 GPU Memory Requirements
 
 The first hardware constraint encountered during model selection is almost always memory capacity.
 
@@ -1163,7 +1162,7 @@ Unlike many traditional applications, where executable code occupies relatively 
 
 Consequently, GPU memory capacity often determines whether a model can be deployed at all.
 
-## Memory Consumption Beyond Model Weights
+### Memory Consumption Beyond Model Weights
 
 A common misconception is that a model requiring 14 GB of storage will also require approximately 14 GB of GPU memory.
 
@@ -1183,7 +1182,7 @@ The exact requirements depend on implementation, inference engine, numerical pre
 
 Therefore, deployment planning should always include operational memory overhead rather than relying exclusively on model file size.
 
-## Numerical Precision
+### Numerical Precision
 
 Memory requirements are strongly influenced by numerical precision.
 
@@ -1197,7 +1196,7 @@ The relationship between precision and model quality is not uniform across archi
 
 These trade-offs are examined in greater detail in Section 4.7.
 
-## Context Length and Memory
+### Context Length and Memory
 
 GPU memory requirements depend not only on model size but also on context length.
 
@@ -1207,7 +1206,7 @@ Consequently, memory consumption increases as context windows grow, even when th
 
 Organizations planning applications involving lengthy documents, software repositories, or extended conversations should therefore evaluate memory requirements using representative production workloads rather than minimal benchmark prompts.
 
-## Practical Engineering Implications
+### Practical Engineering Implications
 
 For platform engineers, GPU memory should be viewed as a deployment constraint rather than merely a performance characteristic.
 
@@ -1217,7 +1216,7 @@ Additional computational capacity, by contrast, often affects latency or through
 
 This distinction explains why organizations frequently prioritize accelerator memory capacity when selecting inference hardware.
 
-# 4.6.2 Consumer GPUs Versus Datacenter GPUs
+## 4.6.2 Consumer GPUs Versus Datacenter GPUs
 
 The rapid growth of open-weight models has significantly broadened the range of viable deployment hardware.
 
@@ -1227,7 +1226,7 @@ Today, improvements in model efficiency and quantization allow many workloads to
 
 Choosing between consumer and datacenter hardware involves evaluating operational requirements rather than benchmark performance alone.
 
-## Consumer GPUs
+### Consumer GPUs
 
 Consumer GPUs provide attractive entry points for experimentation, research, local development, and many small-scale production deployments.
 
@@ -1257,7 +1256,7 @@ Power efficiency under sustained inference workloads may also differ from enterp
 
 Consequently, consumer GPUs are generally most appropriate where moderate throughput and limited operational scale are acceptable.
 
-## Datacenter GPUs
+### Datacenter GPUs
 
 Enterprise accelerators are designed for continuous operation within production infrastructure.
 
@@ -1277,7 +1276,7 @@ Large production deployments frequently rely on accelerator clusters connected t
 
 Such capabilities are less important during experimentation but become essential when operating large-scale AI services.
 
-## Engineering Decision Criteria
+### Engineering Decision Criteria
 
 The appropriate hardware depends primarily on organizational objectives.
 
@@ -1289,7 +1288,7 @@ Customer-facing services requiring predictable latency, high availability, regul
 
 Hardware selection should therefore be aligned with operational requirements rather than prestige or theoretical peak performance.
 
-# 4.6.3 CPU Inference
+## 4.6.3 CPU Inference
 
 Although GPUs dominate contemporary AI inference, CPUs continue to play an important role within the open-weight ecosystem.
 
@@ -1297,7 +1296,7 @@ Advances in quantization, efficient inference engines, and compact language mode
 
 This development is particularly significant because CPUs remain substantially more widespread than specialized accelerators.
 
-## Appropriate Use Cases
+### Appropriate Use Cases
 
 CPU inference is well suited for applications emphasizing:
 
@@ -1313,7 +1312,7 @@ Examples include desktop productivity assistants, developer tools, industrial au
 
 Smaller instruction-tuned models frequently provide satisfactory interactive performance on modern multicore processors when appropriately quantized.
 
-## Advantages
+### Advantages
 
 CPU deployment offers several operational benefits.
 
@@ -1329,7 +1328,7 @@ Maintenance procedures frequently align with established enterprise operational 
 
 These characteristics reduce barriers to experimentation and broaden organizational access to self-hosted AI.
 
-## Limitations
+### Limitations
 
 Despite these advantages, CPUs remain significantly slower than GPUs for large-scale transformer inference.
 
@@ -1343,7 +1342,7 @@ Consequently, CPUs are best viewed as complementary deployment targets rather th
 
 Organizations should evaluate CPU inference where deployment simplicity, privacy, or infrastructure availability outweigh maximum performance requirements.
 
-# 4.6.4 Multi-GPU Requirements
+## 4.6.4 Multi-GPU Requirements
 
 As foundation models continue to increase in capability, many deployments exceed the capacity of a single accelerator.
 
@@ -1351,7 +1350,7 @@ Multi-GPU execution enables larger models to be deployed while also supporting h
 
 From the perspective of model selection, the important question is not how multi-GPU inference works internally, but when it becomes necessary.
 
-## Capacity Versus Performance
+### Capacity Versus Performance
 
 Organizations often assume multiple GPUs exist primarily to increase computational speed.
 
@@ -1363,7 +1362,7 @@ Distributing computation across multiple devices allows substantially larger mod
 
 Only after capacity requirements have been satisfied do additional accelerators typically contribute to throughput and latency improvements.
 
-## Deployment Complexity
+### Deployment Complexity
 
 Transitioning from single-device to multi-device deployment increases operational complexity considerably.
 
@@ -1379,7 +1378,7 @@ These factors increase deployment complexity independently of the underlying mod
 
 Detailed implementation strategies-including tensor parallelism, pipeline parallelism, expert parallelism, communication optimization, and scheduling-are discussed comprehensively in Chapter 5.
 
-## Operational Considerations
+### Operational Considerations
 
 Not every production deployment benefits from multi-GPU architectures.
 
@@ -1406,7 +1405,7 @@ Hardware planning should therefore begin with representative workload characteri
 
 Ultimately, successful AI platform engineering seeks balance rather than maximum hardware capability. The objective is to select infrastructure that supports the required model quality with acceptable latency, throughput, availability, and operational cost. Oversizing hardware increases capital and operational expenditure without necessarily improving business outcomes, while undersizing hardware constrains model selection and limits future platform evolution. The following section examines one of the most important techniques for expanding deployment flexibility across diverse hardware environments: model quantization and compression.
 
-# 4.7 Quantization and Model Compression
+## 4.7 Quantization and Model Compression
 
 One of the most important developments enabling the widespread adoption of open-weight models has been the rapid advancement of model compression techniques. Only a few years ago, deploying state-of-the-art language models typically required multiple enterprise GPUs with hundreds of gigabytes of accelerator memory. Today, many capable instruction-tuned models can execute on workstation GPUs, consumer hardware, and even modern CPUs while maintaining acceptable quality for numerous production workloads.
 
@@ -1418,7 +1417,7 @@ Consequently, platform engineers should understand quantization as part of the m
 
 This section introduces the engineering principles behind quantization and related compression methods. Runtime implementation details-including kernel optimization, scheduling, and hardware-specific execution-are covered in Chapter 5.
 
-# 4.7.1 Why Quantization Exists
+## 4.7.1 Why Quantization Exists
 
 Neural networks store learned parameters as numerical values. During both training and inference, these values are represented using specific numerical formats.
 
@@ -1445,11 +1444,11 @@ The engineering challenge is maintaining acceptable prediction quality while red
 
 Over the past several years, improvements in quantization algorithms have demonstrated that many language models remain remarkably robust even when numerical precision is reduced substantially.
 
-# 4.7.2 Numerical Precision Formats
+## 4.7.2 Numerical Precision Formats
 
 Understanding quantization begins with understanding the numerical formats used to represent model parameters.
 
-## FP32
+### FP32
 
 Single-precision floating point (FP32) became the standard numerical format for deep learning because it provides high numerical accuracy and stable optimization during training.
 
@@ -1457,7 +1456,7 @@ Although still important during parts of the training process, FP32 is increasin
 
 Today, FP32 primarily serves as a reference precision against which lower-precision approaches are evaluated.
 
-## FP16
+### FP16
 
 Half-precision floating point (FP16) reduces memory requirements by approximately half while maintaining sufficiently high numerical precision for many inference workloads.
 
@@ -1465,7 +1464,7 @@ FP16 became one of the first broadly adopted inference formats because modern GP
 
 Many production deployments continue to use FP16 where maximum compatibility is desired.
 
-## BF16
+### BF16
 
 Brain Floating Point (BF16) was developed to improve numerical stability while preserving many of the memory advantages of FP16.
 
@@ -1477,7 +1476,7 @@ Consequently, BF16 has become increasingly popular for both training and inferen
 
 Many recent open-weight models are trained directly using BF16.
 
-## FP8
+### FP8
 
 Recent generations of AI accelerators increasingly support FP8 computation.
 
@@ -1487,7 +1486,7 @@ Although adoption continues to grow, FP8 support depends heavily on hardware gen
 
 It is expected to become increasingly common in enterprise inference infrastructure over the coming years.
 
-## Integer Quantization
+### Integer Quantization
 
 Integer representations such as INT8 replace floating-point numbers with fixed-width integer values.
 
@@ -1495,7 +1494,7 @@ Proper calibration enables many language models to preserve high inference quali
 
 INT8 inference has become a widely adopted production strategy because numerous inference engines and hardware accelerators provide optimized execution paths for integer arithmetic.
 
-## Low-Bit Quantization
+### Low-Bit Quantization
 
 Recent research has demonstrated that many language models remain usable even when weights are represented using four-bit, three-bit, or in some cases even lower precision formats.
 
@@ -1518,7 +1517,7 @@ However, lower precision generally increases the risk of quality degradation, pa
 
 Actual memory savings vary according to implementation, metadata, runtime buffers, and inference engine design.
 
-# 4.7.3 Post-Training Quantization
+## 4.7.3 Post-Training Quantization
 
 The most common production approach is **Post-Training Quantization (PTQ)**.
 
@@ -1540,7 +1539,7 @@ Because PTQ does not require retraining, it has become the dominant approach wit
 
 Most downloadable quantized checkpoints available through public repositories have been produced using post-training techniques.
 
-# 4.7.4 Quantization-Aware Training
+## 4.7.4 Quantization-Aware Training
 
 An alternative strategy is **Quantization-Aware Training (QAT)**.
 
@@ -1560,7 +1559,7 @@ Training pipelines become more complicated.
 
 For these reasons, QAT is generally employed by model developers or organizations performing substantial custom model training rather than by downstream application teams deploying publicly available checkpoints.
 
-# 4.7.5 Popular Quantization Algorithms
+## 4.7.5 Popular Quantization Algorithms
 
 The rapid expansion of open-weight models has produced a diverse ecosystem of quantization algorithms.
 
@@ -1590,13 +1589,13 @@ Platform engineers need not understand every mathematical detail, but they shoul
 | **BitsAndBytes**            | Quantization library                        | Research, experimentation, Hugging Face workflows      | Broad ecosystem integration and multiple low-bit implementations               |
 | **Vendor-specific formats** | Hardware-optimized deployment               | Accelerator-specific production environments           | Often provide maximum performance on supported hardware but reduce portability |
 
-# 4.7.6 Beyond Quantization: Other Compression Techniques
+## 4.7.6 Beyond Quantization: Other Compression Techniques
 
 Although quantization receives the greatest attention, it represents only one category of model compression.
 
 Several additional techniques have become important within the broader AI engineering landscape.
 
-## Pruning
+### Pruning
 
 Pruning removes parameters or computational pathways that contribute relatively little to inference quality.
 
@@ -1604,7 +1603,7 @@ Depending on implementation, pruning may reduce computation, memory consumption,
 
 While historically important in neural network optimization, pruning has become less common than quantization for large language models because transformer architectures often respond better to precision reduction than aggressive parameter removal.
 
-## Knowledge Distillation
+### Knowledge Distillation
 
 Knowledge distillation transfers behavior from a larger teacher model into a smaller student model.
 
@@ -1614,7 +1613,7 @@ Distillation frequently produces compact models with impressive capability-to-si
 
 Many lightweight production models derive at least part of their effectiveness from distillation techniques.
 
-## Low-Rank Adaptation
+### Low-Rank Adaptation
 
 Methods such as Low-Rank Adaptation (LoRA) primarily target efficient fine-tuning rather than inference compression.
 
@@ -1624,7 +1623,7 @@ Organizations deploying numerous domain-specific variants often combine LoRA wit
 
 Fine-tuning methodologies are discussed later in this chapter.
 
-# 4.7.7 Engineering Trade-offs
+## 4.7.7 Engineering Trade-offs
 
 Quantization should not be viewed as a universally beneficial optimization.
 
@@ -1671,7 +1670,7 @@ Quantization has fundamentally changed the economics of open-weight model deploy
 
 Nevertheless, compression does not eliminate the need for careful engineering evaluation. Selecting an appropriate quantization strategy requires balancing memory savings against application-specific quality requirements, hardware availability, and long-term operational objectives. The following section builds on these concepts by examining how models are adapted after pretraining through fine-tuning, parameter-efficient adaptation, and continued training, enabling organizations to customize foundation models for specialized domains without incurring the cost of training from scratch.
 
-# 4.8 Fine-Tuning and Model Adaptation
+## 4.8 Fine-Tuning and Model Adaptation
 
 Pretrained foundation models are intentionally general-purpose. During pretraining, they learn statistical relationships across enormous corpora covering many domains, languages, writing styles, and problem types. This broad knowledge enables a single model to perform a remarkable variety of tasks, but it also means that the model is rarely optimized for any individual organization or business domain.
 
@@ -1683,7 +1682,7 @@ Selecting an adaptation strategy is therefore an architectural decision rather t
 
 This section examines the major approaches to adapting foundation models for production use. The emphasis is on engineering trade-offs rather than optimization algorithms.
 
-# 4.8.1 Adaptation Versus Prompt Engineering
+## 4.8.1 Adaptation Versus Prompt Engineering
 
 Before modifying model weights, organizations should determine whether adaptation is actually necessary.
 
@@ -1729,7 +1728,7 @@ Many successful production systems combine:
 
 Chapter 12 examines retrieval architectures, while Chapters 7 and 8 discuss tool integration and agent orchestration. Those techniques frequently provide greater return on investment than additional model training.
 
-# 4.8.2 Continued Pretraining
+## 4.8.2 Continued Pretraining
 
 The most computationally intensive adaptation strategy is **continued pretraining**, sometimes called **domain-adaptive pretraining**.
 
@@ -1756,7 +1755,7 @@ For example, models intended for pharmaceutical research benefit from exposure t
 
 Similarly, industrial engineering documentation often contains abbreviations, identifiers, formulas, and domain-specific language requiring additional adaptation.
 
-## Advantages
+### Advantages
 
 Continued pretraining strengthens domain knowledge while preserving broad general capabilities.
 
@@ -1764,7 +1763,7 @@ Because the training objective remains unchanged, the resulting model frequently
 
 This approach is particularly effective for organizations possessing large collections of unlabeled domain text.
 
-## Limitations
+### Limitations
 
 Continued pretraining is computationally expensive.
 
@@ -1778,7 +1777,7 @@ Consequently, continued pretraining is generally performed only by model develop
 
 Most enterprises instead rely on lighter-weight adaptation techniques.
 
-# 4.8.3 Supervised Fine-Tuning
+## 4.8.3 Supervised Fine-Tuning
 
 **Supervised Fine-Tuning (SFT)** is the most widely adopted adaptation technique for production language models.
 
@@ -1794,7 +1793,7 @@ During training, the model learns behavioral patterns that align generated outpu
 
 Instruction-following capability in many contemporary language models is largely the result of supervised fine-tuning rather than pretraining alone.
 
-## Training Data
+### Training Data
 
 The quality of supervised fine-tuning depends primarily on dataset quality rather than dataset size.
 
@@ -1810,7 +1809,7 @@ Well-designed examples demonstrate:
 
 Poor-quality examples, inconsistent formatting, or contradictory instructions frequently produce degraded model behavior regardless of dataset volume.
 
-## Production Applications
+### Production Applications
 
 Supervised fine-tuning is commonly used to:
 
@@ -1824,7 +1823,7 @@ Supervised fine-tuning is commonly used to:
 
 Compared with continued pretraining, SFT requires substantially fewer computational resources while producing significant improvements for narrowly defined tasks.
 
-## Risks
+### Risks
 
 Fine-tuning can unintentionally reduce general capability if training data lacks diversity.
 
@@ -1836,7 +1835,7 @@ Regression testing becomes particularly important as specialized datasets grow.
 
 Chapter 13 discusses evaluation methodologies for detecting such regressions systematically.
 
-# 4.8.4 Reinforcement Learning and Preference Optimization
+## 4.8.4 Reinforcement Learning and Preference Optimization
 
 Not all model behaviors can be described through explicit input-output examples.
 
@@ -1855,7 +1854,7 @@ However, reinforcement learning introduces substantial engineering complexity.
 
 Consequently, newer optimization methods have gained popularity.
 
-## Direct Preference Optimization
+### Direct Preference Optimization
 
 **Direct Preference Optimization (DPO)** simplifies preference learning by optimizing directly from preference pairs without requiring an explicit reward model.
 
@@ -1868,7 +1867,7 @@ Compared with RLHF, DPO offers:
 
 Many recent open-weight model families employ DPO or related approaches during instruction tuning.
 
-## Other Preference Optimization Methods
+### Other Preference Optimization Methods
 
 Research continues to produce alternative techniques that improve alignment while reducing computational cost.
 
@@ -1884,7 +1883,7 @@ Although these methods differ mathematically, they share the objective of improv
 
 For most platform engineering teams, understanding that modern instruction-tuned models have undergone preference optimization is more important than mastering the underlying optimization algorithms.
 
-# 4.8.5 Parameter-Efficient Fine-Tuning
+## 4.8.5 Parameter-Efficient Fine-Tuning
 
 As model size increased, conventional fine-tuning became increasingly expensive because every model parameter required updating.
 
@@ -1894,7 +1893,7 @@ Instead of storing complete copies of billions of parameters for every specializ
 
 PEFT has become one of the most important practical developments enabling enterprise customization of open-weight models.
 
-## LoRA
+### LoRA
 
 **Low-Rank Adaptation (LoRA)** is the best-known PEFT technique.
 
@@ -1912,7 +1911,7 @@ This approach provides several advantages:
 
 Many organizations maintain a single base model together with numerous LoRA adapters supporting different departments, languages, customers, or business applications.
 
-## QLoRA
+### QLoRA
 
 QLoRA extends this concept by combining LoRA with quantized base models.
 
@@ -1922,7 +1921,7 @@ QLoRA has enabled high-quality adaptation of medium-sized and even relatively la
 
 For many organizations, QLoRA represents the practical entry point into custom model adaptation because it balances computational efficiency with strong downstream performance.
 
-## Other PEFT Methods
+### Other PEFT Methods
 
 The research community has proposed numerous additional parameter-efficient approaches, including adapters, prefix tuning, prompt tuning, IA³, and related methods.
 
@@ -1941,7 +1940,7 @@ Table 4.10. Comparison of Model Adaptation Techniques
 | **LoRA**                                                     | Efficient task-specific adaptation                     | Domain-specific supervised datasets   | Low                                   | Enterprise customization and rapid experimentation                        | Minimal storage requirements and efficient training                  | May provide smaller improvements than full fine-tuning for some tasks      |
 | **QLoRA**                                                    | Efficient adaptation using quantized base models       | Domain-specific supervised datasets   | Very low relative to full fine-tuning | Organizations with limited GPU resources                                  | Enables adaptation of larger models on modest hardware               | Training complexity increases because quantization and adaptation interact |
 
-# 4.8.6 Choosing an Adaptation Strategy
+## 4.8.6 Choosing an Adaptation Strategy
 
 Selecting an adaptation strategy requires balancing technical objectives against operational constraints.
 
@@ -1978,7 +1977,7 @@ These operational concerns become increasingly important as AI platforms mature 
 
 Ultimately, the objective of model adaptation is not to maximize customization but to minimize the gap between general-purpose foundation models and production requirements. Successful AI platform engineering favors the least complex adaptation strategy capable of achieving measurable business objectives. In many cases this will involve lightweight parameter-efficient techniques combined with retrieval, prompt engineering, and workflow orchestration rather than extensive retraining of the underlying model.
 
-# 4.9 Selecting an Open-Weight Model
+## 4.9 Selecting an Open-Weight Model
 
 The preceding sections have examined the individual factors that influence model selection: architecture, licensing, benchmark interpretation, scaling behavior, hardware requirements, quantization, and adaptation. In practice, however, platform engineers rarely evaluate these characteristics independently. Production model selection is a multidimensional decision involving technical capability, operational constraints, legal requirements, infrastructure availability, organizational maturity, and long-term maintainability.
 
@@ -1988,7 +1987,7 @@ Selecting a foundation model should therefore resemble technology selection in o
 
 The objective of this section is to provide a structured decision framework rather than a ranked list of recommended models. The open-weight ecosystem evolves too rapidly for static recommendations to remain useful. Instead, platform engineers should develop repeatable evaluation processes that remain valid as models continue to improve.
 
-# 4.9.1 Define the Production Requirements First
+## 4.9.1 Define the Production Requirements First
 
 Model evaluation should begin with the application rather than the model.
 
@@ -2022,13 +2021,13 @@ A multilingual customer support platform may value language coverage more than a
 
 Production requirements therefore define evaluation priorities.
 
-# 4.9.2 Establish Evaluation Criteria
+## 4.9.2 Establish Evaluation Criteria
 
 Once requirements have been identified, candidate models should be evaluated using consistent criteria.
 
 Although exact weighting varies among organizations, most production evaluations consider several major dimensions.
 
-## Functional Capability
+### Functional Capability
 
 Functional capability concerns whether the model performs the intended tasks successfully.
 
@@ -2044,7 +2043,7 @@ Evaluation should include:
 
 Public benchmarks provide useful background information but should not replace application-specific evaluation.
 
-## Infrastructure Compatibility
+### Infrastructure Compatibility
 
 Infrastructure compatibility determines whether the model can operate efficiently within the available hardware environment.
 
@@ -2060,7 +2059,7 @@ Important considerations include:
 
 Infrastructure constraints frequently become decisive factors despite relatively small benchmark differences.
 
-## Licensing
+### Licensing
 
 Licensing should be evaluated before extensive engineering effort is invested.
 
@@ -2074,7 +2073,7 @@ Questions include:
 
 Ignoring licensing until deployment frequently results in costly redesign efforts.
 
-## Ecosystem Maturity
+### Ecosystem Maturity
 
 The surrounding ecosystem often influences engineering productivity more than raw model capability.
 
@@ -2091,7 +2090,7 @@ Evaluation should consider:
 
 Models with mature ecosystems generally reduce operational risk because implementation knowledge becomes easier to obtain.
 
-## Operational Characteristics
+### Operational Characteristics
 
 Operational evaluation includes:
 
@@ -2121,7 +2120,7 @@ Chapter 5 examines runtime performance optimization in significantly greater dep
 
 No individual criterion should dominate every decision. The relative importance depends entirely on organizational priorities.
 
-# 4.9.3 Shortlisting Candidate Models
+## 4.9.3 Shortlisting Candidate Models
 
 The initial objective is not to identify the best model but to reduce the evaluation space to a manageable number of candidates.
 
@@ -2143,7 +2142,7 @@ At this stage, organizations should also verify compatibility with preferred inf
 
 Models lacking practical deployment support often impose significantly greater engineering effort than benchmark results alone would suggest.
 
-# 4.9.4 Build an Internal Evaluation Dataset
+## 4.9.4 Build an Internal Evaluation Dataset
 
 Public leaderboards evaluate general capability.
 
@@ -2203,7 +2202,7 @@ Organizations should also perform stress testing using representative production
 
 Operational behavior frequently differs substantially under realistic request distributions.
 
-# 4.9.6 Consider Future Evolution
+## 4.9.6 Consider Future Evolution
 
 Model selection is not a one-time procurement activity. Foundation models evolve rapidly. Inference engines improve. Quantization algorithms mature. Hardware generations change. Licensing terms may be revised. New model families emerge.
 
@@ -2223,7 +2222,7 @@ These practices reduce future migration effort as the technology landscape evolv
 
 Chapter 20 examines long-term platform evolution, technology refresh cycles, and model replacement strategies in greater detail.
 
-# 4.9.7 Common Model Selection Mistakes
+## 4.9.7 Common Model Selection Mistakes
 
 Several recurring mistakes appear across organizations adopting open-weight models. The most common is selecting models exclusively from public benchmark rankings.
 
@@ -2255,7 +2254,7 @@ Representative evaluation data remains the strongest predictor of production suc
 | Optimizing exclusively for quality                  | Focus on benchmark leadership                                |     | Excessive infrastructure cost and reduced scalability                 | Evaluate capability together with operational efficiency               |
 | Coupling applications tightly to one model          | Rapid initial implementation                                 |     | Difficult future migrations and upgrades                              | Abstract model interfaces and maintain repeatable evaluation pipelines |
 
-# 4.9.8 A Practical Decision Framework
+## 4.9.8 A Practical Decision Framework
 
 Although every organization has unique priorities, most successful model selection processes follow a similar sequence:
 
@@ -2274,7 +2273,7 @@ As the open-weight ecosystem continues to evolve, organizations following a stru
 
 Ultimately, selecting an open-weight model is not about identifying a universally superior foundation model. It is about identifying the model that best satisfies a particular combination of technical requirements, operational constraints, legal obligations, and business objectives. The most successful AI platforms consistently prioritize evidence, reproducibility, and long-term maintainability over transient benchmark leadership or community enthusiasm. This engineering mindset provides the foundation for the next chapter, which examines how selected models are transformed into production services through inference engines, model serving architectures, scheduling, caching, batching, and high-performance runtime systems.
 
-# 4.10 Chapter Summary
+## 4.10 Chapter Summary
 
 Open-weight foundation models have transformed the AI platform landscape by giving organizations direct control over model deployment, infrastructure, and customization. Unlike proprietary API-only services, open-weight models enable enterprises to determine where inference occurs, how models are optimized, which hardware they utilize, and how they evolve throughout their operational lifecycle. This flexibility has made them a foundational component of modern AI platforms, particularly where data sovereignty, cost optimization, regulatory compliance, and infrastructure independence are important engineering considerations.
 
@@ -2299,4 +2298,4 @@ Several themes introduced throughout this chapter continue to influence later pa
 The following chapter builds upon this foundation by examining how selected models become operational AI services. Rather than focusing on model capabilities, Chapter 5 analyzes the runtime systems responsible for efficient inference, including model serving architectures, scheduling algorithms, batching strategies, key-value cache management, speculative decoding, parallel execution techniques, and modern inference engines. Together, Chapters 4 and 5 establish the relationship between selecting an appropriate model and operating that model efficiently within a production AI platform.
 
 # Next chapter
-- [Chapter 4. Open-Weight Models, Licensing, and Model Selection](chapter-05.md)
+- [Chapter 5. Inference Engines and Model Serving](chapter-05.md)

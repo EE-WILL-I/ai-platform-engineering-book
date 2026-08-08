@@ -1,5 +1,5 @@
-**Part II - Models and Inference**
-
+# Part II - Models and Inference
+# Chapter 3. Commercial Models, APIs, and Managed AI Platforms
 **3.1 Introduction**
 
 The previous chapter examined AI platforms from the perspective of overall architecture. It introduced the major deployment models, reference architectures, and engineering trade-offs that influence platform design. One of the most important architectural decisions identified in Chapter 2 was whether organizations should consume foundation models as managed services or operate them within their own infrastructure.
@@ -39,7 +39,7 @@ Throughout this chapter, the emphasis remains on engineering decisions rather th
 
 The remainder of this chapter examines the architecture of commercial AI services, distinguishes between model developers and platform providers, and explains how enterprises evaluate managed AI offerings independently of individual model performance.
 
-**3.2 What Is a Commercial AI Service?**
+## 3.2 What Is a Commercial AI Service?
 
 From an engineering perspective, a commercial AI service is **not simply an API exposing a large language model**. It is a managed distributed system that packages one or more foundation models together with the operational capabilities required to deliver reliable production inference.
 
@@ -82,7 +82,7 @@ This delegation should not be interpreted as eliminating operational responsibil
 
 Customers must still design resilient applications, manage credentials, validate outputs, perform regression testing when models evolve, monitor service health, and enforce organizational policies. Those topics are introduced where appropriate throughout this chapter, while their implementation is discussed in detail in later chapters. Evaluation methodologies are covered in Chapter 13, security architecture in Chapter 14, observability in Chapter 15, deployment practices in Chapter 16, and cost engineering in Chapter 17.
 
-**3.3 Model Developers, Platform Providers, and AI Marketplaces**
+## 3.3 Model Developers, Platform Providers, and AI Marketplaces
 
 One of the most common sources of confusion in contemporary AI engineering is the tendency to treat every AI vendor as performing the same role. In reality, the commercial AI ecosystem has become increasingly specialized. Organizations developing frontier foundation models, organizations operating enterprise AI platforms, and organizations aggregating models from multiple vendors frequently represent distinct layers within the overall ecosystem.
 
@@ -136,7 +136,7 @@ This convergence benefits enterprise platform engineering by reducing migration 
 
 Recognizing these distinct roles provides the foundation for the remainder of the chapter. Subsequent sections examine how these services expose APIs, authenticate enterprise workloads, manage model lifecycles, and support production applications while deliberately separating application development from the rapidly evolving ecosystem of foundation models.
 
-**3.4 API Design Patterns**
+## 3.4 API Design Patterns
 
 Although commercial AI providers differ in the models they offer and the platforms through which those models are delivered, their APIs have gradually converged toward a relatively small set of architectural patterns. This convergence has been driven by enterprise demand for interoperability, the emergence of common application requirements, and the practical experience accumulated from operating large-scale AI services.
 
@@ -236,7 +236,7 @@ Architecturally, asynchronous APIs also decouple application responsiveness from
 
 Although implementation details differ across providers, these interaction patterns have become sufficiently widespread that they now represent common architectural building blocks for production AI applications.
 
-**3.5 Authentication, Identity, and Enterprise Access**
+## 3.5 Authentication, Identity, and Enterprise Access
 
 Every commercial AI service must determine **who is permitted to use the platform, under what conditions, and with which operational constraints**. Authentication therefore represents considerably more than a mechanism for protecting API endpoints. Within enterprise AI platforms, identity management becomes a foundational architectural capability influencing governance, auditing, security, billing, and operational accountability.
 
@@ -308,7 +308,7 @@ Applications should authenticate using the same enterprise identity mechanisms e
 
 Identity management is often overlooked during early experimentation because API keys appear sufficient for initial development. However, production AI platforms rarely remain at prototype scale. As adoption expands across multiple applications, business units, and operational environments, enterprise identity becomes one of the principal mechanisms through which governance, security, and accountability are enforced.
 
-**3.6 Model Catalogs and Managed AI Platforms**
+## 3.6 Model Catalogs and Managed AI Platforms
 
 As commercial AI ecosystems have expanded, organizations increasingly face a different challenge from that of only a few years ago. The problem is no longer a lack of available models but an abundance of them.
 
@@ -377,7 +377,7 @@ The broader question of vendor lock-in and architectural portability is examined
 
 The emergence of managed AI platforms reflects a broader trend already familiar from cloud computing. Infrastructure capabilities that were once assembled manually from independent components gradually become integrated platform services. For enterprise AI, model catalogs represent one manifestation of this evolution, allowing organizations to focus increasingly on application architecture and governance while reducing the operational complexity of managing an expanding ecosystem of foundation models.
 
-**3.7 Selecting Commercial Models for Production**
+## 3.7 Selecting Commercial Models for Production
 
 Selecting a commercial foundation model is one of the most visible decisions in an AI project, yet it is rarely the most important architectural decision. Organizations often devote considerable attention to benchmark leaderboards or public comparisons between frontier models, while overlooking operational characteristics that ultimately determine production success.
 
@@ -482,7 +482,7 @@ Chapter 13 develops these evaluation methodologies in detail.
 
 Commercial model selection should therefore be viewed as an iterative engineering process rather than a one-time procurement decision. As models evolve, workloads change, and application requirements mature, organizations should expect model selection to remain an ongoing component of platform governance.
 
-**3.8 Service-Level Characteristics**
+## 3.8 Service-Level Characteristics
 
 Foundation model capability represents only one dimension of production quality. Once an AI application enters continuous operation, service-level characteristics frequently become the dominant engineering concern.
 
@@ -592,7 +592,7 @@ The design of comprehensive observability systems-including metrics, distributed
 
 Operational characteristics should therefore be viewed as first-class architectural requirements rather than implementation details. In many enterprise deployments, these characteristics ultimately determine whether an AI service can be adopted successfully.
 
-**3.9 Model Versioning and Lifecycle Management**
+## 3.9 Model Versioning and Lifecycle Management
 
 Unlike traditional software libraries, commercial foundation models evolve continuously under the control of the service provider. New capabilities are introduced, reasoning behavior changes, safety systems are refined, performance characteristics improve, and older versions are eventually retired.
 
@@ -710,7 +710,7 @@ Chapter 20 revisits this topic from the perspective of long-term platform mainte
 
 Model lifecycle management illustrates an important characteristic of commercial AI services: unlike self-hosted software, organizations do not control every aspect of the underlying technology. Successful platform engineering therefore depends on establishing processes that accommodate continuous model evolution while maintaining application reliability, reproducibility, and operational stability.
 
-**3.10 Beyond Inference: Managed AI Platform Capabilities**
+## 3.10 Beyond Inference: Managed AI Platform Capabilities
 
 The first generation of commercial AI services focused almost exclusively on exposing foundation models through hosted inference APIs. Applications supplied prompts, received generated outputs, and remained responsible for implementing every surrounding capability, including prompt management, retrieval, evaluation, orchestration, governance, and operational tooling.
 
@@ -825,7 +825,7 @@ Recognizing this boundary prevents organizations from overestimating what manage
 
 The expansion of managed platform capabilities reflects the growing maturity of commercial AI ecosystems. Organizations are no longer consuming isolated inference APIs but increasingly adopting integrated development platforms whose value extends well beyond model execution.
 
-**3.11 Enterprise Integration**
+## 3.11 Enterprise Integration
 
 Commercial AI services rarely operate in isolation.
 
@@ -951,7 +951,7 @@ The objective of platform engineering is therefore not simply maximizing model c
 
 Enterprise integration ultimately determines how effectively commercial AI services become part of existing software ecosystems. Organizations evaluating providers should therefore consider operational compatibility alongside model capability.
 
-**3.12 Vendor Lock-In and Portability**
+## 3.12 Vendor Lock-In and Portability
 
 Every managed platform introduces some degree of dependency upon its provider.
 
@@ -1067,7 +1067,7 @@ Platform engineering therefore seeks informed trade-offs rather than universal p
 
 Vendor lock-in is therefore best understood as an architectural trade-off rather than an inherent flaw. Managed AI platforms derive much of their value from offering capabilities beyond raw inference, and those capabilities inevitably create varying degrees of dependency. The responsibility of platform engineering is to ensure that such dependencies are explicit, proportionate to the value they deliver, and aligned with the organization's long-term architectural objectives.
 
-**3.13 Common Misconceptions About Commercial AI Platforms**
+## 3.13 Common Misconceptions About Commercial AI Platforms
 
 The rapid adoption of commercial AI services has produced a number of persistent misconceptions. Many originate from early experimentation with language models, while others arise from marketing narratives or the understandable tendency to compare AI services with traditional software APIs.
 
@@ -1168,7 +1168,7 @@ The emphasis shifts from operating inference infrastructure toward designing rel
 
 Recognizing these misconceptions encourages more realistic architectural planning and reduces the likelihood of unexpected operational challenges as AI systems mature beyond prototype deployments.
 
-**3.14 Chapter Summary**
+## 3.14 Chapter Summary
 
 Commercial AI services have become the dominant mechanism through which organizations adopt frontier foundation models. Rather than operating inference infrastructure directly, engineering teams increasingly consume AI capabilities as managed services offering APIs, operational tooling, enterprise governance, identity integration, and lifecycle management.
 
@@ -1198,7 +1198,7 @@ Finally, model selection has been presented as a continuous engineering process 
 
 The subsequent chapters build upon these concepts by examining situations in which organizations choose to operate models themselves rather than relying exclusively on commercial AI services. Chapter 4 explores open-weight foundation models, software licensing, self-hosted deployment options, and the engineering trade-offs associated with assuming direct operational control over model infrastructure.
 
-**3.15 References**
+## 3.15 References
 
 The references below emphasize authoritative and durable sources. Where multiple editions of the same guidance exist, the most recent stable publication available at the time of writing should generally be preferred.
 

@@ -1,5 +1,8 @@
-# AI Platform Engineering Book WIP
-Open-source book dedicated for AI Platform Engineering fundamentals and best practices.
+# AI Platform Engineering Fundamentals (WIP)
+
+**AI Platform Engineering Fundamentals** is an open-source technical book covering the fundamentals, architecture, design principles, and best practices for building and operating enterprise AI platforms. 
+
+Rather than focusing on short-lived technology trends, it explores the engineering, architectural, operational, and business decisions behind AI systems—from models and inference to data, security, evaluation, deployment, observability, and cost management.
 
 
 # Book Structure

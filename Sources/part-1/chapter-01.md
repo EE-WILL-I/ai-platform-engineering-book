@@ -1,5 +1,5 @@
 # Part I - Foundations and Platform Strategy
-
+# Chapter 1. Scope, Evidence, and Technology Landscape
 **1.1 What Is AI Platform Engineering?**
 
 Artificial intelligence has become an increasingly important component of modern software systems, but the engineering challenges associated with deploying AI capabilities differ significantly from those of developing machine learning models. In many organizations, the primary technical challenge is no longer designing neural network architectures or training foundation models. Instead, engineering effort is concentrated on integrating, operating, securing, scaling, and governing AI capabilities within production software systems.
@@ -28,7 +28,7 @@ This architectural decoupling has important consequences. Stable interfaces, abs
 
 Another defining characteristic is the unusually rapid pace of ecosystem evolution. Foundation models, inference engines, orchestration frameworks, and agent runtimes evolve on timescales measured in months rather than years. By contrast, the underlying architectural principles-distributed systems, API design, authentication, fault tolerance, observability, deployment automation, and operational governance-change much more slowly. This distinction is central to the philosophy of this book: durable engineering principles should guide technology selection rather than temporary market leadership or benchmark rankings.
 
-**1.2 From Machine Learning Platforms to AI Platforms**
+## 1.2 From Machine Learning Platforms to AI Platforms
 
 Understanding AI Platform Engineering requires understanding how production AI infrastructure evolved.
 
@@ -60,7 +60,7 @@ At the same time, cloud-native infrastructure began adapting specifically to AI 
 
 This evolution also altered organizational responsibilities. Data scientists remain responsible for model evaluation and experimentation where organizations develop their own models. However, platform teams increasingly manage model catalogs, API gateways, inference infrastructure, deployment pipelines, access policies, operational telemetry, and service reliability. The AI platform therefore becomes shared infrastructure analogous to databases, Kubernetes clusters, or API gateways rather than a collection of isolated machine learning projects.
 
-**1.3 What Constitutes an AI Platform?**
+## 1.3 What Constitutes an AI Platform?
 
 Despite frequent references to "AI platforms," the term is often used ambiguously. Some vendors apply it to individual model APIs, while others use it to describe orchestration frameworks, cloud services, or complete enterprise ecosystems. For the purposes of this book, an AI platform is defined more precisely.
 
@@ -90,7 +90,7 @@ Accordingly, this book treats AI platforms primarily as distributed software sys
 
 Several of the platform layers introduced here deserve extensive treatment and are therefore intentionally deferred to later chapters. The architecture and implementation of inference engines are examined in Chapter 5. AI gateways, traffic management, and policy enforcement are explored in Chapter 6. Tool calling, orchestration, and workflow execution are covered in Chapters 7 through 9. Storage, retrieval, and knowledge systems are discussed in Chapters 10 through 12. Evaluation methodologies, security, governance, deployment strategies, observability, and cost engineering each receive dedicated chapters later in the book, allowing this introductory chapter to establish the conceptual landscape without prematurely introducing implementation details.
 
-**1.4 The AI Technology Landscape**
+## 1.4 The AI Technology Landscape
 
 The modern AI ecosystem is remarkably diverse. A single production application may combine technologies developed by multiple organizations, deployed across several cloud providers, and governed by different operational teams. Unlike traditional enterprise software, where a single framework or platform often provides most required capabilities, AI systems are typically assembled from specialized components that evolve independently.
 
@@ -125,7 +125,7 @@ Third, technology categories increasingly overlap. Many cloud providers now offe
 
 Throughout this book, technologies are therefore discussed primarily in terms of their architectural responsibilities and operational characteristics. Vendor comparisons are introduced only where they illuminate meaningful engineering trade-offs such as deployment flexibility, operational complexity, ecosystem maturity, licensing implications, or long-term maintainability.
 
-**1.5 AI Platform Architecture Is a System, Not a Model**
+## 1.5 AI Platform Architecture Is a System, Not a Model
 
 Public discussions of artificial intelligence frequently focus almost exclusively on the capabilities of individual models. Benchmark rankings, reasoning performance, context length, and multimodal capabilities dominate technical announcements and media coverage. While these characteristics are important, they represent only one dimension of a production AI system.
 
@@ -152,7 +152,7 @@ These questions are architectural rather than algorithmic. They determine whethe
 
 The remainder of this book adopts this systems perspective consistently. Individual models, inference engines, retrieval systems, orchestration frameworks, and governance mechanisms are presented not as isolated technologies but as cooperating components within a larger platform architecture.
 
-**1.6 Engineering Decisions Versus Product Selection**
+## 1.6 Engineering Decisions Versus Product Selection
 
 One of the most common mistakes made during AI adoption is allowing technology selection to precede architectural analysis.
 
@@ -293,7 +293,7 @@ Finally, benchmark rankings should be interpreted as snapshots rather than perma
 
 The following section builds on these principles by examining how technology maturity should be evaluated and why stable engineering practices often outlast rapidly changing products.
 
-**1.10 Technology Maturity**
+## 1.10 Technology Maturity
 
 The AI ecosystem is characterized not only by rapid innovation but also by significant variation in the maturity of individual technologies. Mature components coexist with experimental research prototypes, early-stage open-source projects, commercial products in active development, and evolving industry standards. Engineers designing production platforms must therefore evaluate not only whether a technology is technically impressive, but also whether it is sufficiently mature for its intended operational role.
 
@@ -331,7 +331,7 @@ This principle extends beyond software. Emerging hardware architectures, acceler
 
 Throughout this book, technologies are therefore discussed within the context of their current engineering maturity. Established industry practices are distinguished from rapidly evolving techniques, and experimental approaches are clearly identified where appropriate. This distinction enables readers to make informed architectural decisions based not only on technical capability but also on operational readiness.
 
-**1.11 Stable Principles Versus Rapidly Changing Technologies**
+## 1.11 Stable Principles Versus Rapidly Changing Technologies
 
 One reason many engineers find the AI ecosystem difficult to navigate is that discussions often treat every component as though it evolves at the same rate. In reality, modern AI platforms consist of technologies with dramatically different lifecycles. Some foundational principles have remained largely unchanged for decades, while others may evolve several times within a single year.
 
@@ -368,7 +368,7 @@ This distinction also influences engineering education. Learning a specific fram
 
 The organization of this book reflects the same philosophy. Although individual products and frameworks are discussed throughout subsequent chapters, emphasis is placed on architectural concepts that remain valuable regardless of future changes in the technology landscape. Products inevitably change. Engineering principles generally endure.
 
-**1.12 How This Book Is Organized**
+## 1.12 How This Book Is Organized
 
 The preceding sections have introduced the conceptual scope of AI Platform Engineering and established the principles that guide technology evaluation throughout this book. The remaining chapters progressively examine the major architectural layers introduced earlier, moving from strategic technology selection through production operations and long-term platform evolution.
 
@@ -392,7 +392,7 @@ The book is organized into eight parts, each focusing on a distinct aspect of mo
 
 Although each chapter can be read independently for reference purposes, the material is organized progressively. Concepts introduced in earlier chapters provide the architectural context necessary for understanding the implementation and operational considerations explored later in the book.
 
-**1.13 What This Chapter Intentionally Does Not Explain**
+## 1.13 What This Chapter Intentionally Does Not Explain
 
 This introductory chapter establishes the conceptual landscape of AI Platform Engineering rather than providing detailed implementation guidance. Many topics introduced briefly in preceding sections require considerably deeper discussion than would be appropriate in a foundational chapter. Attempting to explain every component at this stage would obscure the broader architectural perspective and result in unnecessary repetition throughout the remainder of the book.
 
