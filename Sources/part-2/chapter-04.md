@@ -3,7 +3,7 @@
 
 The emergence of open-weight foundation models has fundamentally changed how organizations design and operate AI platforms. Only a few years ago, deploying state-of-the-art large language models generally meant consuming proprietary APIs operated by a small number of vendors. Today, enterprises can choose from a rapidly expanding ecosystem of openly distributed model weights, serving frameworks, optimization toolchains, and deployment platforms. This shift has transformed model selection from a procurement decision into an architectural discipline involving infrastructure design, licensing analysis, hardware planning, operational readiness, and long-term platform governance.
 
-As discussed in Chapter 3, commercial AI platforms offer compelling advantages, including fully managed infrastructure, predictable APIs, integrated safety mechanisms, and continuous model improvements without operational overhead for customers. These characteristics make managed services an attractive option for many production workloads. However, they also introduce dependencies on external providers, recurring inference costs, limited control over model internals, and constraints on customization. Open-weight models address many of these limitations by allowing organizations to deploy and operate models within their own infrastructure or trusted cloud environments.
+As discussed in [Chapter 3](chapter-03.md), commercial AI platforms offer compelling advantages, including fully managed infrastructure, predictable APIs, integrated safety mechanisms, and continuous model improvements without operational overhead for customers. These characteristics make managed services an attractive option for many production workloads. However, they also introduce dependencies on external providers, recurring inference costs, limited control over model internals, and constraints on customization. Open-weight models address many of these limitations by allowing organizations to deploy and operate models within their own infrastructure or trusted cloud environments.
 
 The term open-weight has become increasingly important because it accurately reflects the current state of the industry. Although many publicly released models are often described as "open source," relatively few satisfy the formal definition of open-source software established by the Open Source Initiative (OSI). In many cases, model weights are publicly downloadable while training datasets, training code, reinforcement learning pipelines, or portions of the development process remain proprietary. Some licenses also impose restrictions on redistribution, acceptable use, or commercial deployment. Consequently, the industry has gradually adopted open-weight as a more precise engineering term that distinguishes publicly available model parameters from fully open-source software projects.
 
@@ -15,7 +15,7 @@ The open-weight ecosystem has also become increasingly heterogeneous. Modern fou
 
 This chapter examines these developments from the perspective of AI platform engineering rather than machine learning research. The objective is not to explain transformer mathematics or training algorithms in depth, but to provide a structured framework for evaluating open-weight models as production infrastructure components. The discussion begins with the historical evolution of the ecosystem, followed by an examination of architectural characteristics, licensing models, benchmark interpretation, hardware implications, quantization, ecosystem maturity, and practical model selection strategies.
 
-Several implementation topics introduced here are explored in greater detail later in the book. In particular, Chapter 5 examines how selected models are executed by modern inference engines, including scheduling algorithms, key-value (KV) cache management, continuous batching, tensor parallelism, speculative decoding, and serving architectures. Chapter 13 discusses systematic model evaluation and regression testing, while Chapters 15 through 17 address deployment, observability, and operational cost management. Throughout this chapter, the focus remains on selecting appropriate models rather than on the mechanics of serving or operating them.
+Several implementation topics introduced here are explored in greater detail later in the book. In particular, [Chapter 5](Sources/part-2/chapter-05.md) examines how selected models are executed by modern inference engines, including scheduling algorithms, key-value (KV) cache management, continuous batching, tensor parallelism, speculative decoding, and serving architectures. [Chapter 13](Sources/part-5/chapter-13.md) discusses systematic model evaluation and regression testing, while Chapters 15 through 17 address deployment, observability, and operational cost management. Throughout this chapter, the focus remains on selecting appropriate models rather than on the mechanics of serving or operating them.
 
 ## 4.1 Evolution of Open-Weight Foundation Models
 
@@ -113,7 +113,7 @@ Selecting an open-weight model begins with understanding its architectural chara
 
 From an AI platform engineering perspective, architecture should be viewed as an infrastructure concern rather than solely a machine learning concern. Architectural choices influence GPU memory requirements, batching efficiency, context handling, quantization compatibility, and serving strategies. They also affect how easily models integrate with inference engines, orchestration frameworks, and deployment platforms discussed in later chapters.
 
-It is important to distinguish between architectural innovation and implementation optimization. Model architecture defines the computational structure of the neural network, while inference engines determine how efficiently that structure is executed on available hardware. This chapter focuses on architectural characteristics that influence model selection. Detailed execution mechanisms-including continuous batching, scheduler design, paged attention, KV cache management, tensor parallelism, pipeline parallelism, and speculative decoding-are examined in Chapter 5.
+It is important to distinguish between architectural innovation and implementation optimization. Model architecture defines the computational structure of the neural network, while inference engines determine how efficiently that structure is executed on available hardware. This chapter focuses on architectural characteristics that influence model selection. Detailed execution mechanisms-including continuous batching, scheduler design, paged attention, KV cache management, tensor parallelism, pipeline parallelism, and speculative decoding-are examined in [Chapter 5](Sources/part-2/chapter-05.md).
 
 Although dozens of architectural variants have been proposed in recent years, most production-ready open-weight language models fall into four broad categories relevant to platform engineers:
 
@@ -208,7 +208,7 @@ Memory placement strategies become more complex because expert weights must rema
 
 Serving systems must also coordinate expert execution efficiently across available hardware.
 
-These challenges primarily concern inference engine implementation rather than model selection itself. Consequently, detailed discussions of expert routing, distributed execution, communication strategies, and scheduling algorithms are deferred to Chapter 5.
+These challenges primarily concern inference engine implementation rather than model selection itself. Consequently, detailed discussions of expert routing, distributed execution, communication strategies, and scheduling algorithms are deferred to [Chapter 5](Sources/part-2/chapter-05.md).
 
 ### Deployment Considerations
 
@@ -324,7 +324,7 @@ However, larger context windows should not be interpreted as eliminating the nee
 
 Providing every available document to the model remains computationally expensive and frequently introduces irrelevant information that degrades answer quality.
 
-Consequently, retrieval architecture remains an essential component of production AI platforms and is discussed extensively in Chapter 12.
+Consequently, retrieval architecture remains an essential component of production AI platforms and is discussed extensively in [Chapter 12](Sources/part-4/chapter-12.md).
 
 ### Architectural Evolution
 
@@ -348,7 +348,7 @@ GPU utilization patterns change.
 
 Batching efficiency may decrease when requests vary significantly in length.
 
-The serving infrastructure responsible for managing these behaviors is discussed in Chapter 5. Here it is sufficient to recognize that context length affects infrastructure requirements almost as much as parameter count.
+The serving infrastructure responsible for managing these behaviors is discussed in [Chapter 5](Sources/part-2/chapter-05.md). Here it is sufficient to recognize that context length affects infrastructure requirements almost as much as parameter count.
 
 ### Long Context Versus Retrieval
 
@@ -362,7 +362,7 @@ Retrieval systems reduce the amount of irrelevant information supplied to the mo
 
 Production systems increasingly combine both approaches, retrieving high-quality context while taking advantage of expanded context windows to preserve richer document structure and conversational history.
 
-Chapter 12 examines these retrieval strategies in detail.
+[Chapter 12](Sources/part-4/chapter-12.md) examines these retrieval strategies in detail.
 
 ### Limitations
 
@@ -458,7 +458,7 @@ Application code developed by an organization remains subject to its own softwar
 
 Because these layers evolve independently, upgrading one component may change licensing obligations without modifying the rest of the platform.
 
-Platform engineering teams should therefore maintain inventories of both software dependencies and deployed model assets. Chapter 20 returns to this topic when discussing long-term platform maintenance and technology governance.
+Platform engineering teams should therefore maintain inventories of both software dependencies and deployed model assets. [Chapter 20](Sources/part-8/chapter-20.md) returns to this topic when discussing long-term platform maintenance and technology governance.
 
 ## 4.3.2 Open Source Versus Open Weight
 
@@ -595,7 +595,7 @@ Although these restrictions are often motivated by responsible AI considerations
 
 Platform teams should therefore coordinate with governance and security functions to ensure deployment policies align with licensing obligations.
 
-Chapter 14 examines policy enforcement, governance frameworks, and operational compliance mechanisms in greater detail.
+[Chapter 14](Sources/part-5/chapter-14.md) examines policy enforcement, governance frameworks, and operational compliance mechanisms in greater detail.
 
 ### Branding and Attribution
 
@@ -879,7 +879,7 @@ It reduces dependence on public benchmark trends that may have little operationa
 
 Internal evaluation datasets also become increasingly valuable over time. As organizations collect production interactions and expert feedback, evaluation quality improves continuously, creating an evidence base that better reflects actual business requirements than any public benchmark can provide.
 
-Developing such evaluation systems requires dedicated processes for dataset management, version control, regression testing, statistical analysis, and continuous quality monitoring. These topics form the foundation of Chapter 13, which examines evaluation and quality assurance as operational disciplines within production AI platforms.
+Developing such evaluation systems requires dedicated processes for dataset management, version control, regression testing, statistical analysis, and continuous quality monitoring. These topics form the foundation of [Chapter 13](Sources/part-5/chapter-13.md), which examines evaluation and quality assurance as operational disciplines within production AI platforms.
 
 For the purposes of model selection, however, the central principle is straightforward: public benchmarks should inform decisions, but they should never replace organization-specific evidence. The most successful AI platforms treat benchmark results as the starting point for evaluation rather than its conclusion.
 
@@ -1065,7 +1065,7 @@ Supplying hundreds of pages of largely irrelevant material to a language model f
 
 Consequently, modern production architectures increasingly combine retrieval systems with expanded context windows rather than viewing them as competing approaches.
 
-The design of retrieval architectures and context engineering is examined comprehensively in Chapter 12.
+The design of retrieval architectures and context engineering is examined comprehensively in [Chapter 12](Sources/part-4/chapter-12.md).
 
 ### Context Quality Versus Context Quantity
 
@@ -1152,7 +1152,7 @@ Unlike conventional software applications, where increased CPU capacity often pr
 
 At the same time, hardware planning has become considerably more flexible than during the first generation of large language models. Improvements in quantization, inference optimization, model architecture, and accelerator technology have expanded the range of viable deployment targets. Organizations can now deploy capable language models on laptops, edge devices, enterprise GPU servers, hyperscale cloud infrastructure, and heterogeneous clusters. Consequently, hardware evaluation is no longer about identifying the most powerful accelerator available, but about selecting an appropriate balance between capability, performance, cost, and operational complexity.
 
-This section examines hardware considerations from the perspective of model selection rather than infrastructure implementation. Topics such as distributed inference, tensor parallelism, pipeline parallelism, GPU scheduling, and serving optimization are addressed in Chapter 5, while capacity planning and infrastructure economics are discussed in Chapter 17.
+This section examines hardware considerations from the perspective of model selection rather than infrastructure implementation. Topics such as distributed inference, tensor parallelism, pipeline parallelism, GPU scheduling, and serving optimization are addressed in [Chapter 5](Sources/part-2/chapter-05.md), while capacity planning and infrastructure economics are discussed in [Chapter 17](Sources/part-6/chapter-17.md).
 
 ## 4.6.1 GPU Memory Requirements
 
@@ -1376,7 +1376,7 @@ Failures affecting individual devices become more significant because multiple a
 
 These factors increase deployment complexity independently of the underlying model.
 
-Detailed implementation strategies-including tensor parallelism, pipeline parallelism, expert parallelism, communication optimization, and scheduling-are discussed comprehensively in Chapter 5.
+Detailed implementation strategies-including tensor parallelism, pipeline parallelism, expert parallelism, communication optimization, and scheduling-are discussed comprehensively in [Chapter 5](Sources/part-2/chapter-05.md).
 
 ### Operational Considerations
 
@@ -1415,7 +1415,7 @@ Model compression, however, is not merely an optimization applied after model se
 
 Consequently, platform engineers should understand quantization as part of the model selection process rather than solely as an inference optimization technique.
 
-This section introduces the engineering principles behind quantization and related compression methods. Runtime implementation details-including kernel optimization, scheduling, and hardware-specific execution-are covered in Chapter 5.
+This section introduces the engineering principles behind quantization and related compression methods. Runtime implementation details-including kernel optimization, scheduling, and hardware-specific execution-are covered in [Chapter 5](Sources/part-2/chapter-05.md).
 
 ## 4.7.1 Why Quantization Exists
 
@@ -1654,7 +1654,7 @@ Instead, compressed models should undergo the same evaluation process applied to
 
 Public benchmark results provide useful initial guidance, but organization-specific testing remains essential because some workloads prove considerably more sensitive to quantization than others.
 
-Chapter 13 examines systematic evaluation methodologies for validating such deployment decisions.
+[Chapter 13](Sources/part-5/chapter-13.md) examines systematic evaluation methodologies for validating such deployment decisions.
 
 **Table 4.9. Compression Techniques Compared**
 
@@ -1726,7 +1726,7 @@ Many successful production systems combine:
 - tool calling,
 - lightweight model adaptation.
 
-Chapter 12 examines retrieval architectures, while Chapters 7 and 8 discuss tool integration and agent orchestration. Those techniques frequently provide greater return on investment than additional model training.
+[Chapter 12](Sources/part-4/chapter-12.md) examines retrieval architectures, while Chapters 7 and 8 discuss tool integration and agent orchestration. Those techniques frequently provide greater return on investment than additional model training.
 
 ## 4.8.2 Continued Pretraining
 
@@ -1833,7 +1833,7 @@ Organizations should therefore evaluate both domain-specific performance and gen
 
 Regression testing becomes particularly important as specialized datasets grow.
 
-Chapter 13 discusses evaluation methodologies for detecting such regressions systematically.
+[Chapter 13](Sources/part-5/chapter-13.md) discusses evaluation methodologies for detecting such regressions systematically.
 
 ## 4.8.4 Reinforcement Learning and Preference Optimization
 
@@ -1973,7 +1973,7 @@ Each adapted model becomes another software artifact requiring lifecycle managem
 
 Organizations maintaining dozens of specialized checkpoints must track compatibility with tokenizer versions, inference engines, quantization formats, evaluation datasets, and deployment pipelines.
 
-These operational concerns become increasingly important as AI platforms mature and are examined later in the book. Chapter 15 discusses deployment pipelines and model registries, while Chapter 20 addresses long-term model lifecycle management, technology evolution, and replacement strategies.
+These operational concerns become increasingly important as AI platforms mature and are examined later in the book. [Chapter 15](Sources/part-6/chapter-15.md) discusses deployment pipelines and model registries, while [Chapter 20](Sources/part-8/chapter-20.md) addresses long-term model lifecycle management, technology evolution, and replacement strategies.
 
 Ultimately, the objective of model adaptation is not to maximize customization but to minimize the gap between general-purpose foundation models and production requirements. Successful AI platform engineering favors the least complex adaptation strategy capable of achieving measurable business objectives. In many cases this will involve lightweight parameter-efficient techniques combined with retrieval, prompt engineering, and workflow orchestration rather than extensive retraining of the underlying model.
 
@@ -2104,7 +2104,7 @@ Operational evaluation includes:
 
 These characteristics frequently determine user experience more directly than benchmark scores.
 
-Chapter 5 examines runtime performance optimization in significantly greater depth.
+[Chapter 5](Sources/part-2/chapter-05.md) examines runtime performance optimization in significantly greater depth.
 
 **Table 4.11. Major Model Selection Criteria**
 
@@ -2168,7 +2168,7 @@ As production systems mature, real user interactions frequently become the most 
 
 Dataset construction eventually becomes a continuous engineering activity supporting regression testing, model upgrades, and quality assurance.
 
-Chapter 13 examines this process in detail.
+[Chapter 13](Sources/part-5/chapter-13.md) examines this process in detail.
 
 **4.9.5 Conduct Comparative Testing**
 
@@ -2220,7 +2220,7 @@ Finally, documentation should record the reasons underlying model selection rath
 
 These practices reduce future migration effort as the technology landscape evolves.
 
-Chapter 20 examines long-term platform evolution, technology refresh cycles, and model replacement strategies in greater detail.
+[Chapter 20](Sources/part-8/chapter-20.md) examines long-term platform evolution, technology refresh cycles, and model replacement strategies in greater detail.
 
 ## 4.9.7 Common Model Selection Mistakes
 
@@ -2295,7 +2295,7 @@ The final section synthesized these topics into a structured framework for model
 
 Several themes introduced throughout this chapter continue to influence later parts of the book. Quantization compatibility, accelerator memory, and architectural characteristics directly affect inference engine selection and serving performance. Adaptation techniques influence deployment pipelines, model registries, and version management. Benchmark interpretation becomes closely connected with continuous evaluation and regression testing. Licensing decisions influence governance, compliance, and organizational risk management. Model selection therefore represents the intersection of technical architecture, infrastructure engineering, legal constraints, and operational planning rather than an isolated machine learning decision.
 
-The following chapter builds upon this foundation by examining how selected models become operational AI services. Rather than focusing on model capabilities, Chapter 5 analyzes the runtime systems responsible for efficient inference, including model serving architectures, scheduling algorithms, batching strategies, key-value cache management, speculative decoding, parallel execution techniques, and modern inference engines. Together, Chapters 4 and 5 establish the relationship between selecting an appropriate model and operating that model efficiently within a production AI platform.
+The following chapter builds upon this foundation by examining how selected models become operational AI services. Rather than focusing on model capabilities, [Chapter 5](Sources/part-2/chapter-05.md) analyzes the runtime systems responsible for efficient inference, including model serving architectures, scheduling algorithms, batching strategies, key-value cache management, speculative decoding, parallel execution techniques, and modern inference engines. Together, Chapters 4 and 5 establish the relationship between selecting an appropriate model and operating that model efficiently within a production AI platform.
 
 # Next chapter
 - [Chapter 5. Inference Engines and Model Serving](chapter-05.md)

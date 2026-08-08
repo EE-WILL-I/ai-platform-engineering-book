@@ -52,7 +52,7 @@ This distinction appears deceptively simple, yet it fundamentally changes archit
 
 The relationship can therefore be summarized as:
 
-### Requirements → Architecture → Technology → Implementation**
+### Requirements → Architecture → Technology → Implementation
 
 Reversing this sequence often produces platforms optimized around product capabilities instead of organizational needs. Such systems may initially demonstrate impressive technical features while remaining difficult to govern, operate, scale, or evolve.
 
@@ -64,7 +64,7 @@ Security and governance requirements introduce another dimension. Organizations 
 
 Organizational capabilities also influence technology selection. A platform operated by a small engineering team with limited experience managing GPU infrastructure may reasonably prioritize managed inference services despite reduced flexibility. Conversely, an organization with established cloud-native operations, platform engineering expertise, and dedicated infrastructure teams may accept greater operational responsibility in exchange for increased deployment control or regulatory compliance.
 
-Financial constraints likewise extend beyond direct infrastructure costs. Engineering effort, operational staffing, vendor contracts, migration complexity, support agreements, and long-term maintenance all contribute to the total cost of ownership. Although detailed cost engineering is deferred until Chapter 17, it is important to recognize that architectural decisions frequently determine the majority of long-term operational expenses.
+Financial constraints likewise extend beyond direct infrastructure costs. Engineering effort, operational staffing, vendor contracts, migration complexity, support agreements, and long-term maintenance all contribute to the total cost of ownership. Although detailed cost engineering is deferred until [Chapter 17](Sources/part-6/chapter-17.md), it is important to recognize that architectural decisions frequently determine the majority of long-term operational expenses.
 
 Requirements also interact with one another. Optimizing for minimum latency may require regional deployments that increase infrastructure cost. Maximizing deployment flexibility may increase operational complexity. Strengthening governance controls may introduce additional processing overhead. Architecture therefore becomes an exercise in balancing competing objectives rather than maximizing any single metric.
 
@@ -168,7 +168,7 @@ The motivations extend beyond redundancy. Different providers excel in different
 
 This approach also reduces dependence on individual providers by introducing architectural abstraction. Applications interact with platform services rather than provider-specific APIs, enabling providers to change over time without requiring application redesign.
 
-The routing mechanisms supporting these architectures are examined in detail in Chapter 6. At this stage it is sufficient to recognize that deployment topology and provider selection are distinct architectural decisions.
+The routing mechanisms supporting these architectures are examined in detail in [Chapter 6](Sources/part-3/chapter-06.md). At this stage it is sufficient to recognize that deployment topology and provider selection are distinct architectural decisions.
 
 Edge Deployment
 
@@ -290,7 +290,7 @@ A **physical architecture** maps those logical components onto infrastructure re
 
 A **deployment architecture** describes how software components are packaged, released, upgraded, and operated throughout their lifecycle. Topics such as container orchestration, GitOps workflows, deployment pipelines, progressive delivery, and infrastructure automation belong primarily to deployment architecture rather than logical system design.
 
-This distinction explains why deployment mechanics are intentionally deferred to Chapter 16. At this stage, the focus remains on understanding the structural relationships among platform components rather than their operational implementation.
+This distinction explains why deployment mechanics are intentionally deferred to [Chapter 16](Sources/part-6/chapter-16.md). At this stage, the focus remains on understanding the structural relationships among platform components rather than their operational implementation.
 
 Architectural Stability Through Abstraction
 
@@ -340,7 +340,7 @@ At a logical level, the architecture consists of several distinct layers.
 
 Business applications interact with an internal AI access layer rather than communicating directly with external providers. This access layer performs authentication, request validation, provider abstraction, policy enforcement, logging, and routing. Requests are then forwarded to one or more commercial AI services. Enterprise data remains within organizational systems and is incorporated through application logic or retrieval mechanisms before requests reach the external model.
 
-Although Chapter 6 discusses AI gateways in detail, it is useful to introduce their architectural role here. Even organizations using a single provider benefit from a centralized integration layer because it isolates applications from provider-specific APIs. If a provider changes authentication mechanisms, introduces new API versions, or is later replaced, only the gateway layer requires modification rather than every application within the organization.
+Although [Chapter 6](Sources/part-3/chapter-06.md) discusses AI gateways in detail, it is useful to introduce their architectural role here. Even organizations using a single provider benefit from a centralized integration layer because it isolates applications from provider-specific APIs. If a provider changes authentication mechanisms, introduces new API versions, or is later replaced, only the gateway layer requires modification rather than every application within the organization.
 
 The architecture also separates business systems from AI infrastructure. Enterprise applications continue to interact with internal databases, document repositories, identity providers, and business services exactly as they would in conventional distributed systems. AI capabilities become another platform service rather than replacing established enterprise architecture.
 
@@ -413,7 +413,7 @@ Governance policies must apply uniformly regardless of deployment location.
 
 Operational telemetry should present a unified view of platform behavior despite heterogeneous infrastructure.
 
-Although these responsibilities significantly influence platform design, their implementation belongs to later chapters. Routing strategies are examined in Chapter 6, deployment automation in Chapter 16, observability in Chapter 15, and capacity planning in Chapter 17.
+Although these responsibilities significantly influence platform design, their implementation belongs to later chapters. Routing strategies are examined in [Chapter 6](Sources/part-3/chapter-06.md), deployment automation in [Chapter 16](Sources/part-6/chapter-16.md), observability in [Chapter 15](Sources/part-6/chapter-15.md), and capacity planning in [Chapter 17](Sources/part-6/chapter-17.md).
 
 An important engineering principle emerges from hybrid architectures: **heterogeneity should exist within the platform rather than within applications**.
 
@@ -522,7 +522,7 @@ Successful platforms therefore distinguish between **standard platform capabilit
 
 Routing decisions likewise become more sophisticated. Requests may be directed according to latency objectives, model capability, regulatory policies, regional availability, or service health. In many organizations these routing policies evolve independently of application software, allowing infrastructure teams to optimize platform behavior without modifying business applications.
 
-The implementation of routing mechanisms, policy engines, retries, traffic shaping, and failover strategies is intentionally deferred until Chapter 6. At the architectural level, the important principle is that **provider diversity becomes a platform capability rather than an application concern**.
+The implementation of routing mechanisms, policy engines, retries, traffic shaping, and failover strategies is intentionally deferred until [Chapter 6](Sources/part-3/chapter-06.md). At the architectural level, the important principle is that **provider diversity becomes a platform capability rather than an application concern**.
 
 **Table 2-9. Typical Motivations for Multi-Provider AI Platforms**
 
@@ -646,9 +646,9 @@ The **knowledge layer** becomes the subject of **Part IV**, where storage system
 
 The cross-cutting concerns intentionally introduced only at a conceptual level throughout this chapter receive dedicated treatment in **Parts V and VI**.
 
-Evaluation methodologies and testing strategies are examined in Chapter 13.
+Evaluation methodologies and testing strategies are examined in [Chapter 13](Sources/part-5/chapter-13.md).
 
-Security, governance, and policy enforcement are presented comprehensively in Chapter 14.
+Security, governance, and policy enforcement are presented comprehensively in [Chapter 14](Sources/part-5/chapter-14.md).
 
 Observability-including telemetry, distributed tracing, AI-specific metrics, and incident investigation-is intentionally deferred until **Chapter 15**, where operational visibility is discussed as an engineering discipline rather than as an architectural abstraction.
 
@@ -663,4 +663,4 @@ This progression mirrors the engineering process itself.
 Architects begin by understanding requirements and selecting an overall platform structure. They then evaluate individual technologies within that structure, implement operational capabilities, and continuously refine the platform as technologies evolve. By following the same sequence, the remainder of this book builds from architectural principles toward increasingly detailed engineering guidance while preserving a consistent systems perspective.
 
 # Next chapter
-- [Chapter 3. Commercial Models, APIs, and Managed AI Platforms](/Sources/part-2/chapter-03.md)
+- [Chapter 3. Commercial Models, APIs, and Managed AI Platforms](Sources/part-2/chapter-03.md)

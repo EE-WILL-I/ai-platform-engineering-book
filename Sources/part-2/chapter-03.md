@@ -2,7 +2,7 @@
 # Chapter 3. Commercial Models, APIs, and Managed AI Platforms
 **3.1 Introduction**
 
-The previous chapter examined AI platforms from the perspective of overall architecture. It introduced the major deployment models, reference architectures, and engineering trade-offs that influence platform design. One of the most important architectural decisions identified in Chapter 2 was whether organizations should consume foundation models as managed services or operate them within their own infrastructure.
+The previous chapter examined AI platforms from the perspective of overall architecture. It introduced the major deployment models, reference architectures, and engineering trade-offs that influence platform design. One of the most important architectural decisions identified in [Chapter 2](Sources/part-1/chapter-02.md) was whether organizations should consume foundation models as managed services or operate them within their own infrastructure.
 
 This chapter explores the first of those approaches: **commercial AI services**.
 
@@ -80,7 +80,7 @@ From a platform engineering perspective, the commercial service therefore become
 
 This delegation should not be interpreted as eliminating operational responsibility altogether.
 
-Customers must still design resilient applications, manage credentials, validate outputs, perform regression testing when models evolve, monitor service health, and enforce organizational policies. Those topics are introduced where appropriate throughout this chapter, while their implementation is discussed in detail in later chapters. Evaluation methodologies are covered in Chapter 13, security architecture in Chapter 14, observability in Chapter 15, deployment practices in Chapter 16, and cost engineering in Chapter 17.
+Customers must still design resilient applications, manage credentials, validate outputs, perform regression testing when models evolve, monitor service health, and enforce organizational policies. Those topics are introduced where appropriate throughout this chapter, while their implementation is discussed in detail in later chapters. Evaluation methodologies are covered in [Chapter 13](Sources/part-5/chapter-13.md), security architecture in [Chapter 14](Sources/part-5/chapter-14.md), observability in [Chapter 15](Sources/part-6/chapter-15.md), deployment practices in [Chapter 16](Sources/part-6/chapter-16.md), and cost engineering in [Chapter 17](Sources/part-6/chapter-17.md).
 
 ## 3.3 Model Developers, Platform Providers, and AI Marketplaces
 
@@ -186,7 +186,7 @@ Structured outputs significantly improve reliability for downstream automation. 
 
 This capability has become particularly important for workflow automation, enterprise integration, and agent-oriented systems, where generated outputs frequently trigger subsequent machine actions rather than human interpretation.
 
-It should be noted, however, that structural validity does not guarantee semantic correctness. A response may satisfy a schema while containing incorrect facts or inappropriate reasoning. Consequently, structured outputs complement rather than replace application-level validation and evaluation, topics explored in Chapter 13.
+It should be noted, however, that structural validity does not guarantee semantic correctness. A response may satisfy a schema while containing incorrect facts or inappropriate reasoning. Consequently, structured outputs complement rather than replace application-level validation and evaluation, topics explored in [Chapter 13](Sources/part-5/chapter-13.md).
 
 Tool Calling
 
@@ -286,7 +286,7 @@ Identity also influences operational governance.
 
 Most providers maintain detailed audit records associating requests with authenticated identities, projects, billing accounts, or organizations. These records support compliance investigations, operational troubleshooting, usage analysis, and financial accountability.
 
-Detailed observability architectures-including request tracing, operational metrics, and incident investigation-are discussed in Chapter 15. Similarly, broader security architecture, policy enforcement, and governance mechanisms are examined comprehensively in Chapter 14. The present discussion focuses only on identity as an architectural building block.
+Detailed observability architectures-including request tracing, operational metrics, and incident investigation-are discussed in [Chapter 15](Sources/part-6/chapter-15.md). Similarly, broader security architecture, policy enforcement, and governance mechanisms are examined comprehensively in [Chapter 14](Sources/part-5/chapter-14.md). The present discussion focuses only on identity as an architectural building block.
 
 Another notable trend is the adoption of **workload identity**.
 
@@ -451,7 +451,7 @@ A more capable model may complete complex workflows in fewer interactions, reduc
 
 Consequently, cost should be evaluated at the application level rather than the individual request level.
 
-Comprehensive cost engineering-including caching strategies, workload routing, capacity planning, and FinOps methodologies-is intentionally deferred to Chapter 17.
+Comprehensive cost engineering-including caching strategies, workload routing, capacity planning, and FinOps methodologies-is intentionally deferred to [Chapter 17](Sources/part-6/chapter-17.md).
 
 Evaluation Rather Than Assumption
 
@@ -465,7 +465,7 @@ The objective is not to determine which model performs best in general, but whic
 
 This philosophy aligns with broader software engineering practice, where synthetic benchmarks complement rather than replace application-specific performance testing.
 
-Chapter 13 develops these evaluation methodologies in detail.
+[Chapter 13](Sources/part-5/chapter-13.md) develops these evaluation methodologies in detail.
 
 **Table 3-6. Representative Model Evaluation Dimensions**
 
@@ -577,7 +577,7 @@ Engineering teams commonly collect metrics including:
 - retry effectiveness,
 - and regional variability.
 
-The design of comprehensive observability systems-including metrics, distributed tracing, logging, dashboards, and incident investigation-is presented in Chapter 15. At this stage it is sufficient to recognize that commercial AI services should be measured using the same operational discipline applied to any distributed production dependency.
+The design of comprehensive observability systems-including metrics, distributed tracing, logging, dashboards, and incident investigation-is presented in [Chapter 15](Sources/part-6/chapter-15.md). At this stage it is sufficient to recognize that commercial AI services should be measured using the same operational discipline applied to any distributed production dependency.
 
 **Table 3-7. Important Service-Level Characteristics**
 
@@ -666,7 +666,7 @@ Whenever models change, applications should be evaluated against these datasets 
 
 Regression testing should include both automated evaluation and targeted human review where appropriate.
 
-The design of evaluation pipelines, benchmark construction, and regression methodologies forms the subject of Chapter 13.
+The design of evaluation pipelines, benchmark construction, and regression methodologies forms the subject of [Chapter 13](Sources/part-5/chapter-13.md).
 
 Migration Planning
 
@@ -696,7 +696,7 @@ These records simplify auditing, incident investigation, and future migration pl
 
 As AI adoption expands across multiple business units, governance increasingly depends upon maintaining a clear inventory of approved model versions rather than allowing unrestricted model selection.
 
-Chapter 20 revisits this topic from the perspective of long-term platform maintenance.
+[Chapter 20](Sources/part-8/chapter-20.md) revisits this topic from the perspective of long-term platform maintenance.
 
 **Table 3-8. Typical Commercial Model Lifecycle**
 
@@ -742,7 +742,7 @@ Such capabilities simplify experimentation and reduce the effort required to com
 
 However, platform-provided evaluations should generally be viewed as complements rather than replacements for organization-specific evaluation pipelines. Providers cannot fully understand domain-specific correctness criteria, proprietary business requirements, or application-specific quality expectations.
 
-Comprehensive evaluation methodology remains an organizational responsibility and is discussed extensively in Chapter 13.
+Comprehensive evaluation methodology remains an organizational responsibility and is discussed extensively in [Chapter 13](Sources/part-5/chapter-13.md).
 
 Fine-Tuning and Customization
 
@@ -760,7 +760,7 @@ Furthermore, advances in prompting, retrieval-augmented generation (RAG), and to
 
 Organizations should therefore treat fine-tuning as one architectural option among several rather than the default approach to improving application performance.
 
-Chapter 4 examines customization from the perspective of open-weight models, where organizations assume greater control over model training and deployment.
+[Chapter 4](Sources/part-2/chapter-04.md) examines customization from the perspective of open-weight models, where organizations assume greater control over model training and deployment.
 
 Integrated Knowledge Services
 
@@ -788,7 +788,7 @@ However, they should not be viewed as complete organizational governance solutio
 
 Enterprise governance typically extends beyond provider capabilities to include application-specific authorization, regulatory compliance, business policies, human review processes, and organizational risk management.
 
-Chapter 14 examines these topics comprehensively.
+[Chapter 14](Sources/part-5/chapter-14.md) examines these topics comprehensively.
 
 Development Environments
 
@@ -901,7 +901,7 @@ Abstracting AI interactions behind organizational interfaces often simplifies te
 
 This architectural abstraction becomes increasingly valuable in multi-provider environments.
 
-Chapter 6 examines gateway architectures supporting such abstraction.
+[Chapter 6](Sources/part-3/chapter-06.md) examines gateway architectures supporting such abstraction.
 
 Enterprise Compliance
 
@@ -1043,7 +1043,7 @@ However, abstraction itself introduces trade-offs.
 
 Generic interfaces may expose only the intersection of provider capabilities, delaying adoption of innovative platform features until abstractions evolve accordingly.
 
-Chapter 6 examines these architectural trade-offs in detail.
+[Chapter 6](Sources/part-3/chapter-06.md) examines these architectural trade-offs in detail.
 
 Deliberate Rather Than Accidental Dependencies
 
@@ -1115,7 +1115,7 @@ Security therefore follows a shared responsibility model similar to cloud comput
 
 Provider capabilities reduce operational burden but do not replace application security architecture.
 
-Chapter 14 examines this distinction in depth.
+[Chapter 14](Sources/part-5/chapter-14.md) examines this distinction in depth.
 
 "Model Quality Improves Automatically"
 
@@ -1196,7 +1196,7 @@ Organizations remain accountable for application architecture, workload-specific
 
 Finally, model selection has been presented as a continuous engineering process rather than a one-time procurement decision. Foundation models evolve rapidly, commercial services continuously introduce new capabilities, and application requirements change over time. Successful organizations therefore establish repeatable evaluation processes, maintain representative regression datasets, monitor provider lifecycle announcements, and periodically reassess architectural decisions.
 
-The subsequent chapters build upon these concepts by examining situations in which organizations choose to operate models themselves rather than relying exclusively on commercial AI services. Chapter 4 explores open-weight foundation models, software licensing, self-hosted deployment options, and the engineering trade-offs associated with assuming direct operational control over model infrastructure.
+The subsequent chapters build upon these concepts by examining situations in which organizations choose to operate models themselves rather than relying exclusively on commercial AI services. [Chapter 4](Sources/part-2/chapter-04.md) explores open-weight foundation models, software licensing, self-hosted deployment options, and the engineering trade-offs associated with assuming direct operational control over model infrastructure.
 
 ## 3.15 References
 
